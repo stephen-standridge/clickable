@@ -1,0 +1,65 @@
+{
+  "name": "clickable",
+  "version": "1.0.0",
+  "description": "A simple slideshow constructor that supports linear, targetted, and nested navigation.",
+  "main": "index.js",
+  "directories": {
+    "lib": "clickable"
+  },
+  "scripts": {
+    "test": "gulp karma",
+    "lint": "gulp lint",
+    "build": "gulp production",
+    "prepublish": "gulp production",
+    "prebuild": "npm run lint",
+    "clean": "rm -r dist/*",
+    "start": "gulp",
+    "watch": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/omadahealth/clickable.git"
+  },
+  "author": "Stephen Standridge <stephen@formisfunction.io> (www.formisfunction.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omadahealth/clickable/issues"
+  },
+  "homepage": "https://github.com/omadahealth/clickable",
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "browserify": "^11.1.0",
+    "chai": "^3.2.0",
+    "chai-jquery": "^2.0.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-filesize": "0.0.6",
+    "gulp-jshint": "^1.11.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-watch": "^4.3.5",
+    "jquery": "^2.1.4",
+    "jshint-stylish": "^2.0.1",
+    "karma": "^0.13.9",
+    "karma-chai-jquery": "^1.0.0",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-fixture": "^0.2.5",
+    "karma-html2js-preprocessor": "^0.1.0",
+    "karma-jquery": "^0.1.0",
+    "karma-json-fixtures-preprocessor": "0.0.5",
+    "karma-mocha": "^0.2.0",
+    "karma-nyan-reporter": "^0.2.2",
+    "karma-sinon-chai": "^1.0.0",
+    "mocha": "^2.2.5",
+    "node-notifier": "^4.2.3",
+    "require-dir": "^0.3.0",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0",
+    "yargs": "^3.24.0"
+  },
+  "dependencies": {
+    "jquery": "^1.8.3"
+  }
+}
