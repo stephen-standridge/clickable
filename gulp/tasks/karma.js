@@ -37,7 +37,7 @@ function processRun( bool ){
 }
 
 gulp.task( 'karma', function(){
-	runKarma({ singleRun: processRun( args.single ), 
+	runKarma({ singleRun: processRun( 'false' ), 
 						 files: processFile( args.file ) }, sysNotifier );
 });
 

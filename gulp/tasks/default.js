@@ -5,7 +5,8 @@ var gulp   = require( 'gulp' ),
 
 gulp.task( 'default', function() {
     gulp.start( 'js' );
+    gulp.start( 'karma' );
     gulp.watch( config.js.src, [ 'js' ] );
-    gulp.watch( config.tests.src, [ 'karma' ] );
+    // gulp.watch( config.karma.src, [ 'karma' ] );
     ///watch all js files, run js, run karma
 });
