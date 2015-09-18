@@ -6,7 +6,7 @@ module.exports = {
     name: 'clickable.js'
   },
   production: {
-    src: [ './dist/clickable.js', './clickable/module.js' ],
+    src: [ './dist/clickable.js' ],
     name: 'clickable.min.js',
     dest: './dist'
   },

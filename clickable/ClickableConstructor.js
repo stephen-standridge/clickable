@@ -1,4 +1,3 @@
-'use strict';
 var ClickableConstructor = function( args, auto=true ){
   let defaults = {
     wrapper: '.js-clickable-interaction',
@@ -27,7 +26,7 @@ var ClickableConstructor = function( args, auto=true ){
 };
 ClickableConstructor.prototype = {
   mergeArgs: function mergeArgs( defaults, override ){
-    var i = {}
+    var i = {};
     for( let attr in defaults ){
       i[ attr ] = defaults[ attr ];
     }
@@ -81,32 +80,40 @@ ClickableConstructor.prototype = {
   },
   setupWrapper: function( i ){
     i.interaction = $( i.wrapper );
-    return i
+    return i;
   },
   setupContent: function( i ){
     i.contentAreas = this.findInInteraction( i, i.content );
-    return i 
+    return i;
   },
   setupIndicators: function( i ){
+    var contentCount, indicatorCount;
     i.indicators = this.findInInteraction( i, i.indicators );
-    if( !i.contentAreas.length > 0 &&
-        !i.indicators.length > 0){
-      i.warnings.push('no content found')
+
+    contentCount = i.contentAreas.length || 0;
+    indicatorCount = i.indicators.length || 0;    
+
+    if( contentCount + indicatorCount < 1){
+      i.warnings.push('no content found');
     }
     i.warn();
-    return i 
+    return i; 
   },
   setupNavigation: function( i ){
+    var prevCount, nextCount, targetCount;
     i.navigation.targets= this.findInInteraction( i, i.navigation.targets );
     i.navigation.prev   = this.findInInteraction( i, i.navigation.prev );
     i.navigation.next   = this.findInInteraction( i, i.navigation.next );
-    if( !i.navigation.targets.length > 0 &&
-        !i.navigation.prev.length > 0 &&
-        !i.navigation.next.length > 0){
-      i.warnings.push('no navigation found')
+
+    prevCount = i.navigation.prev.length || 0;
+    nextCount = i.navigation.next.length || 0; 
+    targetCount = i.navigation.targets.length || 0; 
+
+    if( prevCount + nextCount + targetCount < 1 ){
+      i.warnings.push('no navigation found');
     }
     i.warn();
-    return i 
+    return i; 
   },
   setOnClicks: function( i ){
     for( var nav in i.navigation ) {
@@ -119,7 +126,7 @@ ClickableConstructor.prototype = {
   setupMetaControls: function( i ){
     i.navigation.clear = this.findInInteraction( i, i.meta.clear );
     i.navigation.start = this.findInInteraction( i, i.meta.start );
-    return i
+    return i;
   },
   findInInteraction: function( i, selector ){
     if( $( i.interaction ).find( selector ).length > 0 ){

@@ -1,14 +1,11 @@
-'use strict';
-
-
 (function( global, factory ) {
 
-	if ( typeof module === "object" && typeof module.exports === "object" ) {
+	if ( typeof module === 'object' && typeof module.exports === 'object' ) {
 		module.exports = global.document ?
 			factory( global, true ) :
 			function( w ) {
 				if ( !w.document ) {
-					throw new Error( "requires a window with a document" );
+					throw new Error( 'requires a window with a document' );
 				}
 				return factory( w );
 			};
@@ -17,7 +14,7 @@
 	}
 
 	// Pass this if window is not defined yet
-}(typeof window !== "undefined" ? window : this, function( window, noGlobal ) {
+}(typeof window !== 'undefined' ? window : this, function( window, noGlobal ) {
 	var Clickable = function( args ){
 		var constructed = {};
 	  constructed = new ClickableConstructor( args );

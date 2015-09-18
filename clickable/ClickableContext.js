@@ -1,5 +1,3 @@
-'use strict';
-
 var ClickableContext = function( constructed ){
   this.constructed = new ClickableCautions( constructed );
   this.constructed = this.init( this.constructed );
@@ -77,8 +75,8 @@ ClickableContext.prototype = {
     return i;
   },
   addToOrInit: function addToOrInit( obj, prop ){
-    var prop = prop || 'default';
-    var key = 'context_' + prop;
+    var property = prop || 'default';
+    var key = 'context_' + property;
     if( obj.hasOwnProperty( key ) ){
       obj[ key ] += 1;
       return obj;
@@ -93,7 +91,7 @@ ClickableContext.prototype = {
     i.navigation.prev = this.contextSort( i, 'navigation', 'prev' );    
     i.navigation.next = this.contextSort( i, 'navigation', 'next' );
     this.warnAboutNavigation( i );
-    return i
+    return i;
   },
   contextSort: function contextSort( i, collection, sub ){
     var all = i.get( collection, sub ),

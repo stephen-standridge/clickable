@@ -1,26 +1,24 @@
-'use strict';
-
 var ClickableController = function( constructor ){
     this.constructed = new ClickableCautions( constructor );
-    this.extend.call( this.constructed, this )  
+    this.extend.call( this.constructed, this )  ;
     this.constructed.init( this.constructed );
     return this.constructed;  
 };
 ClickableController.prototype = {
   extend: function( obj ){
-    for( var attr in obj.__proto__ ){
-      if( obj.__proto__.hasOwnProperty( attr ) ){
-        this[ attr ] = obj.__proto__[ attr ];
+    for( var attr in obj ){
+      if( obj.hasOwnProperty( attr ) === false ){
+        this[ attr ] = obj[ attr ];
       }
     }
   }, 
   init: function(){
     this.navigation.type = 'initial';
-    this.setupEvents(  );
-    this.startScreen(  );
+    this.setupEvents( );
+    this.startScreen( );
     return this;
   },
-  startScreen: function(  ){
+  startScreen: function( ){
     if( this.navigation.start ){
       return;
     }
@@ -65,50 +63,41 @@ ClickableController.prototype = {
     var self = this;
     $(this.get('navigation', 'prev')).click(function (e) {
       e.preventDefault();
-      var buffer = self.get('navigation', 'prev').preclick;
-      for(let func in buffer ){
-        buffer[func]()
-      }
+      self.callPreclickFuncs( 'prev' );
       self.prev();
       self.setNavigationType( 'linear' );
     });
     $(this.get('navigation', 'next')).click(function (e) {
       e.preventDefault();
-      var buffer = self.get('navigation', 'next').preclick;
-      for(let func in buffer ){
-        buffer[func]()
-      }      
+      self.callPreclickFuncs( 'next' );     
       self.next();
       self.setNavigationType( 'linear' );
     });
     $(this.get('navigation', 'clear')).click(function (e) {
-      e.preventDefault();
-      var buffer = self.get('navigation', 'clear').preclick;
-      for(let func in buffer ){
-        buffer[func]()
-      }      
+      e.preventDefault();      
+      self.callPreclickFuncs( 'clear' );
       self.reset();
       self.setNavigationType( 'initial' );
     });
     $(this.get('navigation', 'start')).click(function (e) {
       e.preventDefault();
-      var buffer = self.get('navigation', 'start').preclick;
-      for(let func in buffer ){
-        buffer[func]()
-      }
+      self.callPreclickFuncs( 'start' );
       self.goTo( 0);
       self.setNavigationType( 'linear' );
     });
     $(this.get('navigation', 'targets')).click(function (e) {      
       e.preventDefault();
-      var buffer = self.get('navigation', 'targets').preclick;
-      for(let func in buffer ){
-        buffer[func]()
-      }      
+      self.callPreclickFuncs( 'targets' );
       self.goTo( self.get('navigation', 'targets').index(this) );
       self.setNavigationType( 'targetted');
     });
     return i;
+  },
+  callPreclickFuncs: function callPreclickFuncs( navType ){
+    var buffer = this.get('navigation', navType ).preclick;
+    for(let func in buffer ){
+      buffer[func]();
+    }  
   },
   setNavigationType: function(type){
     this.clearNavigationType();
@@ -126,7 +115,9 @@ ClickableController.prototype = {
   makeActive: function(){
     var index = this.index,
         areas = this.get( 'contentAreas' ),
-        indicators = this.get( 'indicators' );
+        indicators = this.get( 'indicators' ),
+        count1 = areas.length || 0,
+        count2 = indicators.length || 0;
 
     if( !this.isToggle || areas.active !== index ){
       this.addInteractionActiveClass();      
@@ -138,7 +129,7 @@ ClickableController.prototype = {
         this.removeClassSVG( indicators[ index ], 'visited' );
         this.addClassSVG( indicators[ index ], 'active' );
       }
-      if( !(areas.length + indicators.length > 0) ){
+      if( count1 + count2 < 1 ){
         this.warnings.push('no content to activate');
         this.warn();
       }
@@ -182,7 +173,7 @@ ClickableController.prototype = {
     }
   },
   addSingularClass: function(elem, newClass){
-    if( elem === undefined ){ return }    
+    if( elem === undefined ){ return; }    
     var tempClass = $(elem).attr('class');
     $(elem).attr('class', tempClass + ' ' +newClass);
   },

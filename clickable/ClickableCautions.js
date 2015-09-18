@@ -3,7 +3,7 @@ var ClickableCautions = function( constructed ){
 			i.warn = this.warn.bind( i );
 			i.warn();
 	return i;
-}
+};
 ClickableCautions.prototype = {
   formatConstructed: function formatConstructed( constructed ){
     var i  = constructed || {};
@@ -20,4 +20,4 @@ ClickableCautions.prototype = {
       console.warn( this.warnings[j] );
     }
   }
-}
+};

@@ -228,13 +228,13 @@ describe('ClickableController.js', function() {
       })
       describe('without content areas or indicators', function(){       
         it('should warn that there is nothing to activate', function(){
-          var dom = fixture.load('html/linear.html');          
+          var dom = fixture.load('html/linear-no-content.html');          
               constructed = new Clickable();
               constructed.contentAreas = {};
               constructed.contentIndicators = {};
               constructed.index = 1;
               constructed.makeActive();
-              expect(constructed.warnings[0]).to.equal('no content to activate')
+              expect(constructed.warnings[1]).to.equal('no content to activate')
         })
       })
     });      
