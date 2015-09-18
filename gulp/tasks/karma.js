@@ -30,15 +30,18 @@ function processFile( file ){
 }
 
 function processRun( bool ){
-	if( bool === 'false' ){
-		return false;
+	if( bool === 'true' ){
+		return true;
 	}
-	return true;
+	return false;
 }
 
 gulp.task( 'karma', function(){
-	runKarma({ singleRun: processRun( 'false' ), 
+	runKarma({ singleRun: processRun( args.single ), 
 						 files: processFile( args.file ) }, sysNotifier );
 });
-
+gulp.task( 'karma-prod', function(){
+	runKarma({ singleRun: processRun( 'true' ), 
+						 files: processFile( args.file ) }, sysNotifier );
+});
 module.exports = runKarma;
