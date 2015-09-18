@@ -85,7 +85,11 @@ describe('ClickableController.js', function() {
 		})
 		describe('without infinite looping', function(){
 			it('should short circuit when trying to navigate before 0', function(){
-				expect(true).to.equal(false)
+				controller.infinite = false;
+				expect( $(controller.contentAreas[0]) ).to.have.class('active')				
+				$(controller.navigation.prev).click()								
+				expect( $(controller.contentAreas[0]) ).to.have.class('active')
+				expect( $(controller.contentAreas[3]) ).to.not.have.class('active')
 			})
 		})		
 	})
@@ -112,7 +116,13 @@ describe('ClickableController.js', function() {
 		})
 		describe('without infinite looping', function(){
 			it('should short circuit when trying to navigate after the last', function(){
-				expect(true).to.equal(false)				
+				controller.infinite = false;
+				expect( $(controller.contentAreas[0]) ).to.have.class('active')				
+				for( var i = 0; i < 4; i++){
+					$(controller.navigation.next).click()								
+				}
+				expect( $(controller.contentAreas[3]) ).to.have.class('active')
+				expect( $(controller.contentAreas[0]) ).to.not.have.class('active')
 			})
 		})		
 	})	
