@@ -134,7 +134,13 @@ ClickableContext.prototype = {
     this.context = 'context_default';
   },  
   getContextDepth: function getContextDepth( c, s ){
-    var collection = this[ c ][ this.context ];    
+    var collection = this[ c ][ this.context ];
+    if( this[c][this.context] === undefined){
+      collection = this[c];
+      if(collection === false){
+        return;
+      }
+    }   
     if( s !== undefined ){
       collection = collection[ s ];
     }

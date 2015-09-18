@@ -1,1 +1,1 @@
-module.exports = require('./dist/storyboarder.min');
+module.exports = require('./dist/clickable.min');
