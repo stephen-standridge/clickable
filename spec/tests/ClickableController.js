@@ -42,7 +42,7 @@ describe('ClickableController.js', function() {
 	describe('#goTo', function(){
 		it('should be bound to navigation targets', function(){
 			$(controller.navigation.targets[2]).click()
-			expect(controller.contentAreas.active).to.equal(2)
+			expect(controller.get('contentAreas').active).to.equal(2)
 			expect($(controller.contentAreas[2])).to.have.class('active')
 			expect($(controller.indicators[2])).to.have.class('active')
 		})
@@ -199,7 +199,7 @@ describe('ClickableController.js', function() {
             expect( $(constructed.indicators[2]) ).not.to.have.class('visited')
         })
         it('should give the interaction an index-specific class', function(){
-          expect( $(constructed.interaction) ).to.have.class('active-'+constructed.printIndex)
+          expect( $(constructed.interaction) ).to.have.class('active-'+constructed.indexPrefix + constructed.index )
         });
         describe('when toggleable', function(){
           describe('and the index was active', function(){

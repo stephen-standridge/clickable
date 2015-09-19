@@ -1,0 +1,47 @@
+<script src="../dist/clickable.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<style>
+  .active{
+    background: yellow;
+  }
+</style>
+<div class="js-clickable-nested-test js-clickable-interaction js-finishable">
+  <div class="content">
+    <div class="initial-selection">
+      <div class="js-clickable-target js-clickable-content-indicator" data-context="test">test1</div>
+      <div class="js-clickable-target js-clickable-content-indicator" data-context="testing">testing1</div>
+      <div class="js-clickable-target js-clickable-content-indicator" data-context="testing">testing2</div>
+      <div class="js-clickable-target js-clickable-content-indicator" data-context="test">test2</div>
+      <div class="js-clickable-target js-clickable-content-indicator">1</div>
+      <div class="js-clickable-target js-clickable-content-indicator">2</div>
+    </div>
+    <div class="content-area js-clickable-content-area" data-context="test">content_test 1
+    </div>
+    <div class="content-area js-clickable-content-area" data-context="testing">
+    content_testing 1
+    </div>
+    <div class="content-area js-clickable-content-area" data-context="testing">
+    content_testing 2
+    </div>
+    <div class="content-area js-clickable-content-area" data-context="test"> 
+      content_test 2
+      </div>
+       <div class="content-area js-clickable-content-area">
+       content 1
+    </div>
+    <div class="content-area js-clickable-content-area">
+    content 2
+    </div>    
+  </div><!-- content -->
+  <div class="navigation">
+    <div class="js-clickable-back" data-context="test"></div>
+    <div class="js-clickable-prev" data-direction="prev" data-context="test"></div>
+    <div class="js-clickable-next" data-direction="next" data-context="test"></div>
+    <div class="js-clickable-start" data-context="test"></div>
+  </div><!-- navigation -->
+
+</div>
+<script>
+  var thing = new Clickable();
+</script>

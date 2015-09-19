@@ -45,7 +45,6 @@ ClickableController.prototype = {
     this.clearNavigationType();
   },  
   decrementIndex: function(){
-
     if(this.index  > 0){
       this.index  --;
     }else if(this.infinite){
@@ -61,42 +60,42 @@ ClickableController.prototype = {
   },
   setupEvents: function setupEvents(i) {
     var self = this;
-    $(this.get('navigation', 'prev')).click(function (e) {
+    $( this.get('navigation', 'prev') ).click(function (e) {
       e.preventDefault();
-      self.callPreclickFuncs( 'prev' );
+      self.callPreclickFuncs( 'prev', $(this) );
       self.prev();
       self.setNavigationType( 'linear' );
     });
     $(this.get('navigation', 'next')).click(function (e) {
       e.preventDefault();
-      self.callPreclickFuncs( 'next' );     
+      self.callPreclickFuncs( 'next', $(this) );     
       self.next();
       self.setNavigationType( 'linear' );
     });
     $(this.get('navigation', 'clear')).click(function (e) {
       e.preventDefault();      
-      self.callPreclickFuncs( 'clear' );
+      self.callPreclickFuncs( 'clear', $(this) );
       self.reset();
       self.setNavigationType( 'initial' );
     });
     $(this.get('navigation', 'start')).click(function (e) {
       e.preventDefault();
-      self.callPreclickFuncs( 'start' );
-      self.goTo( 0);
+      self.callPreclickFuncs( 'start', $(this) );
+      self.goTo(0);
       self.setNavigationType( 'linear' );
     });
-    $(this.get('navigation', 'targets')).click(function (e) {      
-      e.preventDefault();
-      self.callPreclickFuncs( 'targets' );
-      self.goTo( self.get('navigation', 'targets').index(this) );
-      self.setNavigationType( 'targetted');
+    $( this.get('navigation', 'targets') ).click(function(e){
+        e.preventDefault();
+        self.callPreclickFuncs( 'targets', $(this) );
+        self.goTo( self.getIndex('navigation', 'targets', this) );
+        self.setNavigationType( 'targetted');
     });
     return i;
   },
-  callPreclickFuncs: function callPreclickFuncs( navType ){
+  callPreclickFuncs: function callPreclickFuncs( navType, el ){
     var buffer = this.get('navigation', navType ).preclick;
     for(let func in buffer ){
-      buffer[func]();
+      buffer[func].call( this, el );
     }  
   },
   setNavigationType: function(type){
@@ -150,11 +149,11 @@ ClickableController.prototype = {
     this.removeInteractionActiveClass();
   },
   addInteractionActiveClass: function(){
-    this.addClassSVG( this.interaction, 'active-' + this.printIndex );
+    this.addClassSVG( this.interaction, 'active-' + this.indexPrefix + this.index );
   },
   removeInteractionActiveClass: function(){
     for(var i = 0; i< this.total; i++){
-      this.removeClassSVG(this.interaction, 'active-'+ this.printIndex );
+      this.removeClassSVG(this.interaction, 'active-'+ this.indexPrefix + i );
     }
   },
   makeIndicatorVisited: function(){
@@ -166,6 +165,9 @@ ClickableController.prototype = {
     });
   },
   addClassSVG: function(elem, newClass){
+    if( elem == undefined ){
+      return;
+    }      
     if(elem.length > 0){
       this.addMultipleClasses(elem, newClass);
     } else {
@@ -185,6 +187,9 @@ ClickableController.prototype = {
     }
   },
   removeClassSVG: function(elem, removedClass){
+    if( elem == undefined ){
+      return;
+    }    
     if(elem.length > 0){
       this.removeMultipleClasses(elem, removedClass);
     } else {

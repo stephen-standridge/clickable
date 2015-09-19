@@ -25,11 +25,12 @@ ClickableContext.prototype = {
         return this._index[ this.context ] = val;
       }
     });
-    Object.defineProperty( i, 'printIndex', {
+    Object.defineProperty( i, 'indexPrefix', {
+      configurable: true,      
       get: function(){
-        return this.context + '-' + this.index;
+        return this.context + '-';
       }
-    });  
+    }); 
     Object.defineProperty( i, 'total', {
       get: function(){
         return this._total[ this.context ];
@@ -39,7 +40,19 @@ ClickableContext.prototype = {
       }
     });    
     i.get = this.getContextDepth;
+    i.getIndex = this.getContextIndex;
+    i.initBuffer.push( this.contextInit );
     return i;  
+  },
+  contextInit: function contextInit(){
+    if( this._total.hasOwnProperty('context_default')){
+      this.context = 'context_default';
+      return;
+    }
+    for(var first in this._total){
+      this.context = first;
+      break;
+    }
   },
   setInitialData: function setInitialdata( i ){
     i.context = false;
@@ -53,11 +66,22 @@ ClickableContext.prototype = {
     });
     return indices;
   },
+  mergeForMax: function mergeForMax( obj1, obj2 ){
+    var merged = obj1;
+    for( var prop in obj2 ){
+      if( merged[prop] === undefined || merged[prop] < obj2[prop]){
+        merged[prop] = obj2[prop];
+      }
+    }
+    return merged;
+  },
   setTotalData: function setTotalData( i ){
-    var contexts = this.findContextCount( i.contentAreas );
+    var contents = this.findContextCount( i.contentAreas );
+    var indicators = this.findContextCount( i.indicators );
+    var contexts = this.mergeForMax( contents, indicators );
     for( var context in contexts ){
       if( context !== 'context_default' ){
-        i.context = 'context_default';
+        i.context = true;
         i._total = contexts;
         return i;
       }
@@ -81,7 +105,7 @@ ClickableContext.prototype = {
       obj[ key ] += 1;
       return obj;
     }
-    obj[ key ] = 0;
+    obj[ key ] = 1;
     return obj;
   },
   sortCollections: function sortCollections( i ){
@@ -101,7 +125,6 @@ ClickableContext.prototype = {
 
     $(all).filter( function(){
 
-      all = $(all).not( $(this) );        
       return $(this);
 
     } ).each( function(){
@@ -110,6 +133,7 @@ ClickableContext.prototype = {
       if( all[c] === undefined ){
         all[c] = $();
       }
+      $(this).data('index', all[c].length);
       all[c] = $(all[c]).add( $(this) );
     });
     if( onclick ){ all.preclick = onclick;
@@ -117,7 +141,7 @@ ClickableContext.prototype = {
     return all;
   },
   warnAboutNavigation: function warnAboutNavigation( i ){
-    for( var key in i.index ){
+    for( var key in i._index ){
       if( i.navigation.targets[ key ] === undefined && 
         i.navigation.prev[ key ] === undefined &&
         i.navigation.next[ key ] === undefined ){
@@ -133,9 +157,12 @@ ClickableContext.prototype = {
     }
     this.context = 'context_default';
   },  
+  getContextIndex: function getContextIndex( c, s, el){
+    return $(el).data('index');
+  },  
   getContextDepth: function getContextDepth( c, s ){
     var collection = this[ c ][ this.context ];
-    if( this[c][this.context] === undefined){
+    if( this[c][this.context] === undefined || this.context === true ){
       collection = this[c];
       if(collection === false){
         return;
@@ -145,7 +172,7 @@ ClickableContext.prototype = {
       collection = collection[ s ];
     }
     return collection;
-  },  
+  },
   setContextKey: function setContextKey( el ){
     var ctx = el.data( 'context' ) || 'default';
     return 'context_' + ctx;

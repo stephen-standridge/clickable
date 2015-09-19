@@ -12,7 +12,6 @@
 	} else {
 		factory( global );
 	}
-
 	// Pass this if window is not defined yet
 }(typeof window !== 'undefined' ? window : this, function( window, noGlobal ) {
 	var Clickable = function( args ){
@@ -20,6 +19,9 @@
 	  constructed = new ClickableConstructor( args );
 	  constructed = new ClickableContext( constructed );
 	  constructed = new ClickableController( constructed ); 
+    for( let i = 0; i< constructed.initBuffer.length; i++ ){
+    	constructed.initBuffer[i].call( constructed );
+    }
 	  return constructed;
 	};
 	if ( typeof noGlobal === 'undefined' ) {

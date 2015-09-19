@@ -17,13 +17,18 @@ describe('ClickableConstructor.js', function() {
 	  		constructor = new ClickableConstructor()
 	  		expect( constructor.index ).to.equal( 0 );
 	  		expect( constructor.total ).to.equal( 0 );
-	  		expect( constructor.printIndex ).to.equal( 0 );
+	  		expect( constructor.indexPrefix ).to.equal( '' );
 	  		expect( constructor.hasOwnProperty('get') ).to.equal(true)
 	  	})
 	  	it('should add an onclick queue to the clickable elements', function(){
 	  		var dom = fixture.load('html/linear.html');
 	  		constructor = new ClickableConstructor()
 	  		expect( JSON.stringify(constructor.navigation.prev.preclick ) ).to.equal(JSON.stringify([]) )
+	  	})
+	  	it('should add an initBuffer', function(){
+	  		var dom = fixture.load('html/linear.html');
+	  		constructor = new ClickableConstructor()
+	  		expect( JSON.stringify(constructor.initBuffer) ).to.equal(JSON.stringify([]))	  		
 	  	})
 	  });
  	  describe('with any arguments', function() {

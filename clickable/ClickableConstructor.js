@@ -49,12 +49,12 @@ ClickableConstructor.prototype = {
         return i._index = val;
       }
     });
-    Object.defineProperty( i, 'printIndex', {
+    Object.defineProperty( i, 'indexPrefix', {
       configurable: true,      
       get: function(){
-        return this._index;
+        return '';
       }
-    });       
+    });  
     i._total = 0;
     Object.defineProperty( i, 'total', {
       configurable: true,      
@@ -65,7 +65,9 @@ ClickableConstructor.prototype = {
         return i._total = val;
       }
     });    
-    i.get = this.getDepth;    
+    i.get = this.getDepth;
+    i.getIndex = this.getIndex;
+    i.initBuffer = [];  
     return i;    
   },
   init: function( constructed ){
@@ -122,6 +124,9 @@ ClickableConstructor.prototype = {
       }
     }
     return i;
+  },
+  getIndex: function getIndex( c, s, el){
+    return this.get(c, s).index(el);
   },
   setupMetaControls: function( i ){
     i.navigation.clear = this.findInInteraction( i, i.meta.clear );
