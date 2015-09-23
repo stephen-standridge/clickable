@@ -8,10 +8,14 @@
 	right: 0;
 	top: 0;
 	bottom: 0;
+	margin-bottom: 90px;
 	margin-top: 50px;
 }
 .js-clickable-target-test{
 	height: 950px;
+}
+.js-clickable-nested-test{
+	height: 1150px;
 }
 h4{
 	clear: both;
@@ -70,7 +74,14 @@ h4{
 	text-align: center;
 	cursor: pointer;	
 }
-
+.target-conclusion{
+	position: fixed;
+	width: 100%;
+	text-align: center;
+	bottom: 0;
+	background: white;
+	z-index: 5;
+}
 .content-body{
 	padding-left: 20px;
 	padding-right: 20px;

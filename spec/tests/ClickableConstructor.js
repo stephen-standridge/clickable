@@ -23,7 +23,7 @@ describe('ClickableConstructor.js', function() {
 	  	it('should add an onclick queue to the clickable elements', function(){
 	  		var dom = fixture.load('html/linear.html');
 	  		constructor = new ClickableConstructor()
-	  		expect( JSON.stringify(constructor.navigation.prev.preclick ) ).to.equal(JSON.stringify([]) )
+	  		expect( JSON.stringify(constructor.navigation.preclick ) ).to.equal(JSON.stringify([]) )
 	  	})
 	  	it('should add an initBuffer', function(){
 	  		var dom = fixture.load('html/linear.html');

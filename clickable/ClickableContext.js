@@ -2,6 +2,7 @@ var ClickableContext = function( constructed ){
   this.constructed = new ClickableCautions( constructed );
   this.constructed = this.init( this.constructed );
   if( this.constructed.context ){
+    this.constructed = this.establishCollections( this.constructed);
     this.constructed = this.sortCollections( this.constructed );
     this.constructed = this.overrideDefaults( this.constructed );
   }
@@ -108,12 +109,24 @@ ClickableContext.prototype = {
     obj[ key ] = 1;
     return obj;
   },
+  establishCollections: function establishCollections( i ){
+    for( let key in i._total ){
+      i.contentAreas[key] = $();
+      i.indicators[key] = $();
+      i.navigation.targets[key] = $();
+      i.navigation.prev[key] = $();    
+      i.navigation.next[key] = $();      
+    }
+    return i;
+  },
   sortCollections: function sortCollections( i ){
     i.contentAreas = this.contextSort( i, 'contentAreas' );  
     i.indicators = this.contextSort( i, 'indicators' );
+    this.warnAboutContent( i );
     i.navigation.targets = this.contextSort( i, 'navigation', 'targets' );
     i.navigation.prev = this.contextSort( i, 'navigation', 'prev' );    
     i.navigation.next = this.contextSort( i, 'navigation', 'next' );
+    i.navigation.preclick.push(this.parseContext);
     this.warnAboutNavigation( i );
     return i;
   },
@@ -121,7 +134,6 @@ ClickableContext.prototype = {
     var all = i.get( collection, sub ),
         self = this, 
         onclick;
-    if( all ){ onclick = all.preclick; }
 
     $(all).filter( function(){
 
@@ -130,22 +142,27 @@ ClickableContext.prototype = {
     } ).each( function(){
 
       var c = self.setContextKey( $(this) );
-      if( all[c] === undefined ){
-        all[c] = $();
-      }
       $(this).data('index', all[c].length);
-      all[c] = $(all[c]).add( $(this) );
+      all[c] = $(all[c]).add( $(this) );   
     });
-    if( onclick ){ all.preclick = onclick;
-                   all.preclick.push(self.parseContext ); }
+
     return all;
   },
   warnAboutNavigation: function warnAboutNavigation( i ){
     for( var key in i._index ){
-      if( i.navigation.targets[ key ] === undefined && 
-        i.navigation.prev[ key ] === undefined &&
-        i.navigation.next[ key ] === undefined ){
+      if( i.navigation.targets[ key ].length < 1 && 
+        i.navigation.prev[ key ].length < 1 &&
+        i.navigation.next[ key ].length < 1 ){
         i.warnings.push(`there is no navgation for the context ${key}`);
+      }
+    }
+    i.warn();
+  },
+  warnAboutContent: function warnAboutContent( i ){
+    for( var key in i._index ){
+      if( i.contentAreas[ key ].length < 1 && 
+        i.indicators[ key ].length < 1 ){
+        i.warnings.push(`there is no content for the context ${key}`);
       }
     }
     i.warn();
@@ -161,18 +178,24 @@ ClickableContext.prototype = {
     return $(el).data('index');
   },  
   getContextDepth: function getContextDepth( c, s ){
-    var collection = this[ c ][ this.context ];
-    if( this[c][this.context] === undefined || this.context === true ){
-      collection = this[c];
-      if(collection === false){
-        return;
-      }
-    }   
+
+    var collection = this[ c ];
+
     if( s !== undefined ){
       collection = collection[ s ];
+      if( collection === undefined ){
+        return false;
+      }
+      if( this.context === true ){
+        return collection;
+      }      
     }
-    return collection;
+    if(collection[ this.context ] === undefined ){
+      return collection;
+    }
+    return collection[ this.context ];    
   },
+
   setContextKey: function setContextKey( el ){
     var ctx = el.data( 'context' ) || 'default';
     return 'context_' + ctx;

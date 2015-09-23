@@ -1,6 +1,6 @@
 {
   "name": "clickable",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A simple slideshow constructor that provides linear, targetted, and nested navigation.",
   "main": "index.js",
   "directories": {

@@ -2,6 +2,8 @@ var ClickableController = function( constructor ){
     this.constructed = new ClickableCautions( constructor );
     this.extend.call( this.constructed, this )  ;
     this.constructed.init( this.constructed );
+    this.constructed.initBuffer.push( this.startScreen );
+
     return this.constructed;  
 };
 ClickableController.prototype = {
@@ -15,7 +17,6 @@ ClickableController.prototype = {
   init: function(){
     this.navigation.type = 'initial';
     this.setupEvents( );
-    this.startScreen( );
     return this;
   },
   startScreen: function( ){
@@ -59,41 +60,40 @@ ClickableController.prototype = {
       this.index  = 0;
     }
   },
-  setupEvents: function setupEvents(i) {
+  setupEvents: function setupEvents( ) {
     var self = this;
     $( this.get('navigation', 'prev') ).click(function (e) {
       e.preventDefault();
-      self.callPreclickFuncs( 'prev', $(this) );
+      self.callPreclickFuncs($(this) );
       self.prev();
       self.setNavigationType( 'linear' );
     });
     $(this.get('navigation', 'next')).click(function (e) {
       e.preventDefault();
-      self.callPreclickFuncs( 'next', $(this) );     
+      self.callPreclickFuncs( $(this) );     
       self.next();
       self.setNavigationType( 'linear' );
     });
     $(this.get('navigation', 'clear')).click(function (e) {
       e.preventDefault();      
-      self.callPreclickFuncs( 'clear', $(this) );
+      self.callPreclickFuncs( $(this) );
       self.reset();
     });
     $(this.get('navigation', 'start')).click(function (e) {
       e.preventDefault();
-      self.callPreclickFuncs( 'start', $(this) );
+      self.callPreclickFuncs( $(this) );
       self.goTo(0);
       self.setNavigationType( 'linear' );
     });
     $( this.get('navigation', 'targets') ).click(function(e){
         e.preventDefault();
-        self.callPreclickFuncs( 'targets', $(this) );
+        self.callPreclickFuncs( $(this) );
         self.goTo( self.getIndex('navigation', 'targets', this) );
         self.setNavigationType( 'targetted');
     });
-    return i;
   },
-  callPreclickFuncs: function callPreclickFuncs( navType, el ){
-    var buffer = this.get('navigation', navType ).preclick;
+  callPreclickFuncs: function callPreclickFuncs( el ){
+    var buffer = this.get('navigation', 'preclick' );
     for(let func in buffer ){
       buffer[func].call( this, el );
     }  
@@ -115,17 +115,17 @@ ClickableController.prototype = {
     var index = this.index,
         areas = this.get( 'contentAreas' ),
         indicators = this.get( 'indicators' ),
-        count1 = areas.length || 0,
-        count2 = indicators.length || 0;
+        count1 = areas ?  areas.length : 0,
+        count2 = indicators ? indicators.length : 0;
 
-    if( !this.isToggle || areas.active !== index ){
+    if( !this.toggle || areas.active !== index ){
       this.addInteractionActiveClass();      
-      if( areas.length > 0 ) { 
+      if( count1 > 0 ) { 
         this.addClassSVG( areas[ index ], 'active' );
         this.addClassSVG( areas[ index ], 'js-active' );
         areas.active = index ;        
       }
-      if( indicators.length > 0 ){ 
+      if( count2 > 0 ){ 
         this.removeClassSVG( indicators[ index ], 'visited' );
         this.removeClassSVG( indicators[ index ], 'js-visited' );
         this.addClassSVG( indicators[ index ], 'active' );
@@ -141,12 +141,14 @@ ClickableController.prototype = {
   },
   makeAllInactive: function(){
     var areas = this.get( 'contentAreas' ),
-        indicators = this.get( 'indicators' );
-    if( areas.length ){
+        indicators = this.get( 'indicators' ),
+        count1 = areas ?  areas.length : 0,
+        count2 = indicators ? indicators.length : 0;
+    if( count1 > 0 ){
       this.removeClassSVG( areas, 'active' );
       this.removeClassSVG( areas, 'js-active' );
     }
-    if( indicators.length ){
+    if( count2 > 0 ){
       this.makeIndicatorVisited();   
       this.removeClassSVG( indicators, 'active' );
       this.removeClassSVG( indicators, 'js-active' );

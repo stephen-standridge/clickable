@@ -51,7 +51,7 @@ describe('ClickableController.js', function() {
 			expect(controller.contentAreas.active).to.equal(1)
 		})
 		it('should call targets preclick buffer before executing', function(){
-			controller.navigation.targets.preclick.push(test)
+			controller.navigation.preclick.push(test)
 			$(controller.navigation.targets[0]).click()
 			expect( controller.happiness ).to.equal(true)
 		})
@@ -73,7 +73,7 @@ describe('ClickableController.js', function() {
 			expect(controller.contentAreas.active).to.equal(3)
 		})
 		it('should call prev preclick buffer before executing', function(){
-			controller.navigation.prev.preclick.push(test)
+			controller.navigation.preclick.push(test)
 			$(controller.navigation.prev).click()
 			expect( controller.happiness ).to.equal(true)
 		})
@@ -104,7 +104,7 @@ describe('ClickableController.js', function() {
 			expect(controller.contentAreas.active).to.equal(1)
 		})
 		it('should call next preclick buffer before executing', function(){
-			controller.navigation.next.preclick.push(test)
+			controller.navigation.preclick.push(test)
 			$(controller.navigation.next).click()
 			expect( controller.happiness ).to.equal(true)
 		})
@@ -138,7 +138,7 @@ describe('ClickableController.js', function() {
 			expect($(controller.contentAreas[0])).to.not.have.class('active')
 		})
 		it('should call next preclick buffer before executing', function(){
-			controller.navigation.next.preclick.push(test)
+			controller.navigation.preclick.push(test)
 			$(controller.navigation.next).click()
 			expect( controller.happiness ).to.equal(true)
 		})
@@ -206,7 +206,7 @@ describe('ClickableController.js', function() {
         describe('when toggleable', function(){
           describe('and the index was active', function(){
             it('should do nothing', function(){
-              constructed.isToggle = true;
+              constructed.toggle = true;
               $(constructed.contentAreas[1]).removeClass('active')
               $(constructed.indicators[1]).removeClass('active')
               expect( constructed.contentAreas.active ).to.equal(1)

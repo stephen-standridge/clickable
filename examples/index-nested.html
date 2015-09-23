@@ -15,17 +15,15 @@
           <h3>Description</h3>
         </div>
         <div class="content-body">
-          <h4>Targets</h4>
-          <p>Targets elements are a different form of navigation. Targetted navigation works from the order that each element (target and content) appears in the page. The first target correspondingly activates the first content element on click. </p>
+          <h4>Nested Navigation with Contexts</h4>
+          <p>A Clickable can have navigational contexts that define which navigational elements are tied to which content and indicator elements. By specifying a navigational context, you can enable nested navigation wherein the user can navigate within an activated content element. </p>
           <h4>Notes</h4>
           <ul>
-            <li>To create a target element, the Clickable will look for <b>'.js-clickable-target'</b> by default.</li>
-            <li>Target elements should occur in a 1:1 fashion with Content elements.</li>
-            <li>Targetted navigation can be blocked by a start element.</li>
-            <li>Targetted navigation can be cleared by the clear element.</li>
-            <li>Targetted navigation adds the class <b>'.targetted'</b> to the Clickable element.</li>
-            <li>Targetted navigation and linear navigation can coexist peacefully.</li>
-            <li>The clickable will log a no navigation found error if it cannot find a next element, a prev element or a target element.</li>
+            <li>By default, the Clickable will not recognize any contexts.</li>
+            <li>The Clickable will look for the <b>data-context</b> attribute to establish a navigational context.</li>
+            <li>If some elements have a <b>data-context</b> and some elements don't, the Clickable will make a default context to manage the elements without a defined context</li>
+            <li>No content and no Navigation warnings are specific to a context. The warning will specify the context.</li>
+            <li>When navigational contexts are present, the default <b>'.active-index'</b> class will be replaced with a <b>'.active-context-index'</b> class.</li>
           </ul>
         </div>          
       </div>
@@ -34,33 +32,53 @@
           <h3>Example</h3>
         </div>
         <div class="content-body">
-          <div class="js-target-interaction">
-            <div class="js-clickable-content-area"> First Section</div>
-            <div class="js-clickable-content-area"> Second Section </div>
-            <div class="js-clickable-target">first</div>
-            <div class="js-clickable-target">second</div>            
-          </div>
-          <script>new Clickable({wrapper: '.js-target-interaction'});</script>
+            <div class="js-clickable-context-test js-context-interaction">
+              <div class="content-area-container">
+                <div class="js-clickable-content-area split"> First Section<br> Context: default </div>
+                <div class="js-clickable-content-area split"> Last Section<br> Context: default </div>
+                <div class="js-clickable-content-area split" data-context="test"> First Section<br> Context: test </div>
+                <div class="js-clickable-content-area split" data-context="test"> Last Section<br> Context: test </div>  
+              </div>            
+              <div class="js-clickable-prev split">prev<br>Context: default</div>
+              <div class="js-clickable-next split">next<br>Context: default</div>
+              <div class="js-clickable-target js-clickable-indicator split" data-context="test">first<br>Context: test</div>
+              <div class="js-clickable-target js-clickable-indicator split" data-context="test">last<br>Context: test</div>                    
+            </div>
+            <script>new Clickable({wrapper: '.js-context-interaction'});</script>           
             <h4>HTML</h4>
             <code>
-             &lt;div class=&quot;js-target-interaction&quot;&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
-              &nbsp; &nbsp; First Section<br>
-              &nbsp; &lt;/div&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
-              &nbsp; &nbsp; Second Section<br>
-              &nbsp; &lt;/div&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
-              &nbsp; &nbsp; first<br>
-              &nbsp; &lt;/div&gt;
-              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
-              &nbsp; &nbsp; second<br>
+            &lt;div class=&quot;js-clickable-context-test js-context-interaction&quot;&gt;<br>
+              &nbsp; &lt;div class=&quot;content-area-container&quot;&gt;<br>
+              &nbsp; &nbsp; &lt;div class=&quot;js-clickable-content-area split&quot;&gt;<br>
+              &nbsp; &nbsp; &nbsp;  First Section&lt;br&gt; Context: default<br>
+              &nbsp; &nbsp;  &lt;/div&gt;<br>
+              &nbsp; &nbsp; &lt;div class=&quot;js-clickable-content-area split&quot;&gt;<br>
+              &nbsp; &nbsp; &nbsp; Last Section&lt;br&gt; Context: default<br>
+              &nbsp; &nbsp;  &lt;/div&gt;<br>
+              &nbsp; &nbsp; &lt;div class=&quot;js-clickable-content-area split&quot; data-context=&quot;test&quot;&gt;<br>
+              &nbsp; &nbsp; &nbsp;  First Section&lt;br&gt; Context: test<br>
+              &nbsp; &nbsp;  &lt;/div&gt;<br>
+              &nbsp; &nbsp; &lt;div class=&quot;js-clickable-content-area split&quot; data-context=&quot;test&quot;&gt;<br>
+              &nbsp; &nbsp; &nbsp;  Last Section&lt;br&gt; Context: test<br>
+              &nbsp; &nbsp;  &lt;/div&gt;<br>  
               &nbsp; &lt;/div&gt;<br>            
-            &lt;/div&gt;
+              &nbsp; &lt;div class=&quot;js-clickable-prev split&quot;&gt;<br>
+              &nbsp; &nbsp; prev &lt;br&gt;Context: default<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-next split&quot;&gt;<br>
+              &nbsp; &nbsp; next&lt;br&gt;Context: default<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-target js-clickable-indicator split&quot; data-context=&quot;test&quot;&gt;<br>
+              &nbsp; &nbsp; first&lt;br&gt;Context: test<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-target js-clickable-indicator split&quot; data-context=&quot;test&quot;&gt;<br>
+              &nbsp; &nbsp; last&lt;br&gt;Context: test<br>
+              &nbsp; &lt;/div&gt;<br>
+              &lt;/div&gt;
             </code>
             <h4>Javascript</h4>
             <code>
-              new Clickable({wrapper: '.js-target-interaction'});
+              new Clickable({wrapper: '.js-context-interaction'})
             </code>          
         </div>
       </div>       
@@ -71,17 +89,8 @@
           <h3>Description</h3>
         </div>
         <div class="content-body">
-          <h4>Indicators</h4>
-          <p>Indicators are elements that are activated in parallell with content elements. Just as content elements are activated in a linear or targetted fashion, so are indicators. Unlike content elements, Indicator elements receive a 'visited' state once they are no longer active.</p>
-          <h4>Notes</h4>
-          <ul>
-            <li>The Clickable will look for <b>'.js-clickable-indicator'</b> by default</li>
-            <li>Indicator elements mimic the activation of the content elements meaning when content 0 is activated, indicator 0 is active.</li>
-            <li>Indicators add the class <b>'.active'</b> and <b>'.js-active'</b> when they are active</li>
-            <li>Indicators replace the '.active' and '.js-active' with <b>'.visited'</b> and <b>'.js-visited'</b> once they are no longer active.</li>
-            <li>Indicators can either be active or visited, not both.</li>
-            <li>The clickable will log a no content found error if it cannot find either an indicator element or a content element.</li>            
-          </ul>
+          <h4>Mixing Navigation</h4>
+          <p>Although most cases won't require it, Clickable is made to successfully manage any navigation element combination. It is entirely possible for a Clickable interaction to have prev/next, targets, clear and start in the same interaction. Even with all of these elements, the toggle and infinite settings will work. Nothing special is needed to make this happen or work except defining the elements.</p> 
         </div>          
       </div>
       <div class="content-execution">
@@ -89,43 +98,53 @@
           <h3>Example</h3>
         </div>
         <div class="content-body">
-          <div class="js-indicator-interaction">
-            <div class="js-clickable-content-area"> First Section</div>
-            <div class="js-clickable-content-area"> Second Section </div>
-            <div class="js-clickable-indicator">indicator 1</div>
-            <div class="js-clickable-indicator">indicator 2</div>            
-            <div class="js-clickable-target">first</div>
-            <div class="js-clickable-target">second</div>            
-          </div>
-          <script>new Clickable({wrapper: '.js-indicator-interaction'});</script>
+          <div class="js-clickable-linear-test js-mixed-interaction">
+            <div class="js-clickable-start">Start</div>
+            <div class="js-clickable-content-area"> First Section
+            <div class="js-clickable-clear">Clear</div></div>            
+            <div class="js-clickable-content-area"> Last Section 
+            <div class="js-clickable-clear">Clear</div></div>
+            <div class="js-clickable-prev split">prev</div>
+            <div class="js-clickable-next split">next</div> 
+            <div class="js-clickable-target split">first</div>
+            <div class="js-clickable-target split">last</div>            
+          </div>     
+         <script>new Clickable({wrapper: '.js-mixed-interaction'});</script>           
             <h4>HTML</h4>
             <code>
-             &lt;div class=&quot;js-indicator-interaction&quot;&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
-              &nbsp; &nbsp; First Section<br>
-              &nbsp; &lt;/div&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
-              &nbsp; &nbsp; Second Section<br>
-              &nbsp; &lt;/div&gt;<br>
-
-              &nbsp; &lt;div class=&quot;js-clickable-indicator&quot;&gt;<br>
-              &nbsp; &nbsp; indicator 1<br>
-              &nbsp; &lt;/div&gt;
-              &nbsp; &lt;div class=&quot;js-clickable-indicator&quot;&gt;<br>
-              &nbsp; &nbsp; indicator 2<br>
-              &nbsp; &lt;/div&gt;<br> 
-
-              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
-              &nbsp; &nbsp; first<br>
-              &nbsp; &lt;/div&gt;
-              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
-              &nbsp; &nbsp; second<br>
-              &nbsp; &lt;/div&gt;<br>            
-            &lt;/div&gt;
+            &lt;div class=&quot;js-clickable-linear-test js-mixed-interaction&quot;&gt;<br>
+            &nbsp; &lt;div class=&quot;js-clickable-start&quot;&gt;<br>
+            &nbsp; &nbsp; Start<br>
+            &nbsp; &lt;/div&gt;<br>
+            &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br>
+            &nbsp; &nbsp;  First Section<br>
+            &nbsp; &nbsp; &lt;div class=&quot;js-clickable-clear&quot;&gt;<br>
+            &nbsp; &nbsp; &nbsp; Clear<br>
+            &nbsp; &nbsp; &lt;/div&gt;<br>
+            &nbsp; &lt;/div&gt;<br>          
+            &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br>
+            &nbsp; &nbsp; Last Section<br>
+            &nbsp; &nbsp; &lt;div class=&quot;js-clickable-clear&quot;&gt;<br>
+            &nbsp; &nbsp; &nbsp; Clear<br>
+            &nbsp; &nbsp; &lt;/div&gt;<br>
+            &nbsp; &lt;/div&gt;<br>
+            &nbsp; &lt;div class=&quot;js-clickable-prev split&quot;&gt;<br>
+            &nbsp; &nbsp; prev<br>
+            &nbsp; &lt;/div&gt;<br>
+            &nbsp; &lt;div class=&quot;js-clickable-next split&quot;&gt;<br>
+            &nbsp; &nbsp; next<br>
+            &nbsp; &lt;/div&gt; 
+            &nbsp; &lt;div class=&quot;js-clickable-target split&quot;&gt;<br>
+            &nbsp; &nbsp; first<br>
+            &nbsp; &lt;/div&gt;<br>
+            &nbsp; &lt;div class=&quot;js-clickable-target split&quot;&gt;<br>
+            &nbsp; &nbsp; last<br>
+            &nbsp; &lt;/div&gt;<br>
+            &lt;/div&gt;                  
             </code>
             <h4>Javascript</h4>
             <code>
-              new Clickable({wrapper: '.js-indicator-interaction'});
+            new Clickable({wrapper: '.js-mixed-interaction'});            
             </code>          
         </div>
       </div>       
@@ -136,13 +155,8 @@
           <h3>Description</h3>
         </div>
         <div class="content-body">
-          <h4>Mixing Elements</h4>
-          <p>Any element except the wrapper element can be mixed with any other element type. This is not always the wisest decision. (Start + Clear does nothing good). Some useful combinations:</p>
-          <ul>
-            <li><b>Indicator</b> element + <b>Target</b> element. Allows the controls to reflect the currently active content area</li>
-            <li><b>Indicator</b> element + <b>Content</b> element. Allows content areas to have a visited state.</li>
-            <li><b>Clear</b> element + final <b>Content</b> element. A good way to restart the Clickable interaction</li>
-          </ul>
+          <h4>Nested Navigation without Contexts</h4>
+      
         </div>          
       </div>
       <div class="content-execution">
@@ -150,37 +164,16 @@
           <h3>Example</h3>
         </div>
         <div class="content-body">
-          <div class="js-mixing-interaction">
-            <div class="js-clickable-content-area"> First Section</div>
-            <div class="js-clickable-content-area"> Second Section </div>         
-            <div class="js-clickable-target js-clickable-indicator">first</div>
-            <div class="js-clickable-target js-clickable-indicator">second</div>            
-          </div>
-          <script>new Clickable({wrapper: '.js-mixing-interaction'});</script>
             <h4>HTML</h4>
             <code>
-             &lt;div class=&quot;js-mixing-interaction&quot;&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
-              &nbsp; &nbsp; First Section<br>
-              &nbsp; &lt;/div&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
-              &nbsp; &nbsp; Second Section<br>
-              &nbsp; &lt;/div&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-target js-clickable-indicator&quot;&gt;<br>
-              &nbsp; &nbsp; first<br>
-              &nbsp; &lt;/div&gt;
-              &nbsp; &lt;div class=&quot;js-clickable-target js-clickable-indicator&quot;&gt;<br>
-              &nbsp; &nbsp; second<br>
-              &nbsp; &lt;/div&gt;<br>            
-            &lt;/div&gt;
+             
             </code>
             <h4>Javascript</h4>
             <code>
-              new Clickable({wrapper: '.js-mixing-interaction'});
             </code>          
         </div>
       </div>       
-    </div>  
+    </div>   
     <div class="content-area js-clickable-meta-content">
       <div class="content-description">
         <div class="content-title">
@@ -278,18 +271,12 @@
             </code>          
         </div>        
       </div>       
-    </div>  
-    <div class="content-area js-clickable-meta-content">
-        <div class="conclusion">
-          <p>That's about it for linear navigation. The next section covers targetted and mixed navigation as well as navigational indicators.</p> <br>
-          <a href="index-target.html">Click to Continue</a>
-        </div>
     </div>     
   </div><!-- content -->
   <div class="navigation">
-    <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator"> Targets </div>
-     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Indicators </div>
-     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Mixing Elements </div>     
+    <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Nesting with Contexts </div>
+     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Mixing Navigation Types </div>         
+     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Nesting without Contexts </div>
      <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Global States </div>
   </div><!-- navigation -->  
 </div>
@@ -306,10 +293,11 @@
                                   });</script>
 
 
-
 <!-- 
- - mixed navigation
+ - advanced navigation (mixed)
  - contexts
- - default context and context globals
+    - default context
+    - active-context-index class
+ - global states
  - nesting without contexts
  -->

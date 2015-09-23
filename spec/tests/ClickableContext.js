@@ -51,7 +51,7 @@ describe('ClickableContext.js', function() {
 	  			expect( contexts.get ).to.equal(depthFunc)
 	  		})
 	  		it('should add a getData method to the preclick queue', function(){
-	  			expect( contexts.navigation.targets.preclick[0] ).to.equal(ClickableContext.prototype.parseContext)
+	  			expect( contexts.navigation.preclick[0] ).to.equal(ClickableContext.prototype.parseContext)
 	  		})
 	  		it('should add contextInit to the initBuffer', function(){
 	  			expect( contexts.initBuffer[0] ).to.equal( initFunc )

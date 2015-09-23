@@ -77,7 +77,6 @@ ClickableConstructor.prototype = {
         i = this.setupNavigation( i );
         i = this.setupIndicators( i );
         i = this.setupMetaControls( i );
-        i = this.setOnClicks( i );
         return i;
   },
   setupWrapper: function( i ){
@@ -114,7 +113,7 @@ ClickableConstructor.prototype = {
     i.navigation.targets= this.findInInteraction( i, i.navigation.targets );
     i.navigation.prev   = this.findInInteraction( i, i.navigation.prev );
     i.navigation.next   = this.findInInteraction( i, i.navigation.next );
-
+    i.navigation.preclick = [];
     prevCount = i.navigation.prev.length || 0;
     nextCount = i.navigation.next.length || 0; 
     targetCount = i.navigation.targets.length || 0; 
@@ -124,14 +123,6 @@ ClickableConstructor.prototype = {
     }
     i.warn();
     return i; 
-  },
-  setOnClicks: function( i ){
-    for( var nav in i.navigation ) {
-      if( i.navigation[ nav ] !== false ){
-        i.navigation[ nav ].preclick = [];        
-      }
-    }
-    return i;
   },
   getIndex: function getIndex( c, s, el){
     return this.get(c, s).index(el);

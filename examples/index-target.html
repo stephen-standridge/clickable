@@ -187,45 +187,13 @@
           <h3>Description</h3>
         </div>
         <div class="content-body">
-          <h4>Global States</h4>
-          <p>The Clickable has global states which relate to how and if the Clickable has been navigated. These states are added and removed from the wrapper via a class. The five main states are:</p>
+          <h4>Toggle Option</h4>
+          <p>The toggle constructor option is a best used with targetted navigation. When the Clickable's target option is enabled, the content area and indicator will work like normal on the initial click of a target element and then deactivate on the second click of that same target element.</p>
           <ul>
-            <li>Initial.
-              <ul>
-                <li>No class is added to the interaction</li>
-                <li>All other states are removed</li>
-                <li>This state occurs if the Clickable has a start element before the start element is clicked.</li>
-                <li>This state also occurs if the interaciton has a clear element and after the clear element has been clicked</li>
-              </ul>
-            </li>
-            <li>Navigated.
-              <ul>
-                <li>The '<b>navigated</b>' class is added to the Clickable wrapper. </li>
-                <li>This state occurs any time the Clickable is not in the initial state.</li>
-              </ul>
-            </li>
-            <li>Linear.
-              <ul>
-                <li>The '<b>linear</b>' class is added to the Clickable wrapper</li>
-                <li>This state occurs when the most recent navigation was a previous or next element click.</li>
-                <li>This state cannot occur the same time as the targetted state</li>
-              </ul>
-            </li>
-            <li>Targetted.
-              <ul>
-                <li>The '<b>targetted</b>' class is added to the Clickable wrapper</li>
-                <li>This state occurs when the most recent navigation was a target element click.</li>
-                <li>This state cannot occur the same time as the linear state</li>
-              </ul>
-            </li>                           
-            <li>Active-index.
-              <ul>
-                <li>The '<b>active-index</b>' class is added to the Clickable wrapper where index is the current content area active.</li>
-                <li>This state occurs any time the Clickable is navigated.</li>
-                <li>This state is removed in the initial state.</li>
-                <li>This state cannot occur the same time as other active-index states.</li>
-              </ul>
-            </li> 
+            <li>By default toggle is set to false</li>
+            <li>To enable, pass {toggle: true} to the Clickable constructor</li>
+            <li>You can also change the clickable's toggle option after construction by declaring Clickable.toggle = true;</li>
+            <li>Toggling only removes the active-index class; it does not remove or change any other global states.</li>
           </ul>
         </div>          
       </div>
@@ -233,65 +201,50 @@
         <div class="content-title">
           <h3>Example</h3>
         </div>
-        <div class="content-body">
-          <div class="js-globals-interaction">
-            <div class="js-clickable-start">Start</div>          
-            <div class="js-clickable-content-area"> First Section
-            <div class="js-clickable-clear">clear</div>            
-            </div>
-            <div class="js-clickable-content-area"> Second Section 
-            <div class="js-clickable-clear">clear</div>            
-            </div>         
-            <div class="js-clickable-target">first</div>            
-            <div class="js-clickable-next">next</div>            
+       <div class="content-body">
+          <div class="js-toggle-interaction">
+            <div class="js-clickable-content-area"> First Section</div>
+            <div class="js-clickable-content-area"> Second Section </div>         
+            <div class="js-clickable-target js-clickable-indicator">first</div>
+            <div class="js-clickable-target js-clickable-indicator">second</div>            
           </div>
-          <script>new Clickable({wrapper: '.js-globals-interaction'});</script>
+          <script>new Clickable({wrapper: '.js-toggle-interaction', toggle: true});</script>
             <h4>HTML</h4>
             <code>
-            &lt;div class=&quot;js-globals-interaction&quot;&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-start&quot;&gt;<br>
-              &nbsp; &nbsp; Start<br>
-              &nbsp; &lt;/div&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt; <br>
+             &lt;div class=&quot;js-toggle-interaction&quot;&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
               &nbsp; &nbsp; First Section<br>
-              &nbsp; &nbsp; &lt;div class=&quot;js-clickable-clear&quot;&gt;<br>
-              &nbsp; &nbsp; &nbsp; clear<br>
-              &nbsp; &nbsp; &lt;/div&gt;<br>
               &nbsp; &lt;/div&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt; <br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
               &nbsp; &nbsp; Second Section<br>
-              &nbsp; &nbsp; &lt;div class=&quot;js-clickable-clear&quot;&gt;<br>
-              &nbsp; &nbsp; &nbsp; clear<br>
-              &nbsp; &nbsp; &lt;/div&gt;<br>
-              &nbsp; &lt;/div&gt;<br>    
-              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-target js-clickable-indicator&quot;&gt;<br>
               &nbsp; &nbsp; first<br>
-              &nbsp; &lt;/div&gt;<br>
-              &nbsp; &lt;div class=&quot;js-clickable-next&quot;&gt;<br>
-              &nbsp; &nbsp; next<br>
-              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;/div&gt;
+              &nbsp; &lt;div class=&quot;js-clickable-target js-clickable-indicator&quot;&gt;<br>
+              &nbsp; &nbsp; second<br>
+              &nbsp; &lt;/div&gt;<br>            
             &lt;/div&gt;
             </code>
             <h4>Javascript</h4>
             <code>
-              new Clickable({wrapper: '.js-globals-interaction'});
+              new Clickable({wrapper: '.js-toggle-interaction', toggle: true});
             </code>          
-        </div>        
+        </div>   
       </div>       
     </div>  
-    <div class="content-area js-clickable-meta-content">
-        <div class="conclusion">
-          <p>That's about it for linear navigation. The next section covers targetted and mixed navigation as well as navigational indicators.</p> <br>
-          <a href="index-target.html">Click to Continue</a>
-        </div>
-    </div>     
+  
   </div><!-- content -->
   <div class="navigation">
     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator"> Targets </div>
      <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Indicators </div>
      <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Mixing Elements </div>     
-     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Global States </div>
+     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Toggle Option</div>
   </div><!-- navigation -->  
+</div>
+<div class="target-conclusion">
+    <p>The next example covers mixed and nested navigation as well as </p> <br>
+  <a href="index-nested.html">Click to Continue</a>
 </div>
 <script>var thing = new Clickable({infinite: false,
                                   wrapper: '.js-clickable-meta-interaction',
@@ -311,5 +264,5 @@
  - targets
  - content indicators
  - targetted vs linear class and all global classes
- - elements can be multiple elements at the same time.
- -->
+ - toggle option 
+-->

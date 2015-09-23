@@ -17,12 +17,12 @@
 .content-execution .js-clickable-content-area.active{
 	display: block;
 }
-.content-execution .js-basic-interaction, .content-execution .js-finite-interaction, .content-execution .js-started-interaction, .content-execution .js-mixing-interaction, .content-execution .js-target-interaction, .content-execution .js-globals-interaction{
+.content-execution .js-basic-interaction, .content-execution .js-finite-interaction, .content-execution .js-started-interaction, .content-execution .js-mixing-interaction, .content-execution .js-target-interaction, .content-execution .js-globals-interaction, .content-execution .js-toggle-interaction, .content-execution .js-mixed-interaction{
 	height: 270px;
 	position: relative;
 	margin-bottom: 20px;
 }
-.content-execution .js-indicator-interaction{
+.content-execution .js-indicator-interaction, .content-execution .js-context-interaction{
 	height: 325px;
 	position: relative;
 	margin-bottom: 20px;
@@ -55,6 +55,33 @@
 	padding-right: 5%;
 	text-align: center;
 	position: relative;
+}
+.content-execution .js-clickable-prev.split, .content-execution .js-clickable-next.split, .content-execution .js-clickable-target.split{
+	max-width: 15%;
+
+}
+.content-execution .content-area-container{
+ 	width: 100%;
+ 	height: 210px;
+ 	clear: both;
+}
+.content-execution .js-clickable-content-area.split{
+	width: 50%;
+	box-sizing: border-box;
+	max-width: 50%;
+	border: 1px solid rgba(220, 220, 220, 1);
+	float: left;
+}
+
+.content-execution .js-toggle-interaction .js-clickable-target{
+	position: absolute;
+	bottom: 0;
+}
+.content-execution .js-toggle-interaction .js-clickable-target:nth-child(4){
+	right: 0;
+}
+.content-execution .js-toggle-interaction .js-clickable-target:nth-child(3){
+	left: 0;
 }
 .content-execution .js-clickable-indicator.active{
 	background: rgba(255,255,255,1);
