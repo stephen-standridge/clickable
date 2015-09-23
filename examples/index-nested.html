@@ -1,58 +1,315 @@
-<div class="js-clickable-mixed-test js-clickable-interaction">
+<script src="../dist/clickable.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<link rel="stylesheet" href="examples.css">
+<link rel="stylesheet" href="example-description.css">
+<link rel="stylesheet" href="example-execution.css">
+<div class="js-clickable-nested-test js-clickable-meta-interaction">
+    <div class="start-screen">
+      <div>Clickable is an easy-to-use, configurable content navigation module. Clickable supports three basic types of navigation: linear, targetted, and nested navigation.</div>
+      <div class="js-clickable-meta-start">Click to Begin</div>
+    </div>  
   <div class="content">
-    <div class="initial-selection">
-      <div class="js-clickable-target js-clickable-content-indicator" data-context="test">test1</div>
-      <div class="js-clickable-target js-clickable-content-indicator" data-context="test">test2</div>
-      <div class="js-clickable-target js-clickable-content-indicator" data-context="test">test3</div>
-      <div class="js-clickable-target js-clickable-content-indicator" data-context="test2">test2 1</div>
-      <div class="js-clickable-target js-clickable-content-indicator" data-context="test2">test2 2</div>   
-      <div class="js-clickable-target js-clickable-content-indicator" data-context="test2">test2 3</div>      
-    </div>
-    <div class="content-area js-clickable-content-area" data-context="test">
-      content_test 1
-    </div>
-    <div class="content-area js-clickable-content-area" data-context="test"> 
-      content_test 2
-    </div>    
-    <div class="content-area js-clickable-content-area" data-context="test"> 
-      content_test 3
-    </div>    
-    <div class="content-area js-clickable-content-area" data-context="test2">
-      content_test2 1
-    </div>
-    <div class="content-area js-clickable-content-area" data-context="test2">
-      content_test2 2
-    </div>
-    <div class="content-area js-clickable-content-area" data-context="test2">
-      content_test2 3
-    </div>
-    <div class="content-area js-clickable-content-area">
-      content 1
-    </div>
-    <div class="content-area js-clickable-content-area">
-      content 2
-    </div>    
-    <div class="content-area js-clickable-content-area">
-      content 3
-    </div>    
+    <div class="content-area js-clickable-meta-content">
+      <div class="content-description">
+        <div class="content-title">
+          <h3>Description</h3>
+        </div>
+        <div class="content-body">
+          <h4>Targets</h4>
+          <p>Targets elements are a different form of navigation. Targetted navigation works from the order that each element (target and content) appears in the page. The first target correspondingly activates the first content element on click. </p>
+          <h4>Notes</h4>
+          <ul>
+            <li>To create a target element, the Clickable will look for <b>'.js-clickable-target'</b> by default.</li>
+            <li>Target elements should occur in a 1:1 fashion with Content elements.</li>
+            <li>Targetted navigation can be blocked by a start element.</li>
+            <li>Targetted navigation can be cleared by the clear element.</li>
+            <li>Targetted navigation adds the class <b>'.targetted'</b> to the Clickable element.</li>
+            <li>Targetted navigation and linear navigation can coexist peacefully.</li>
+            <li>The clickable will log a no navigation found error if it cannot find a next element, a prev element or a target element.</li>
+          </ul>
+        </div>          
+      </div>
+      <div class="content-execution">
+        <div class="content-title">
+          <h3>Example</h3>
+        </div>
+        <div class="content-body">
+          <div class="js-target-interaction">
+            <div class="js-clickable-content-area"> First Section</div>
+            <div class="js-clickable-content-area"> Second Section </div>
+            <div class="js-clickable-target">first</div>
+            <div class="js-clickable-target">second</div>            
+          </div>
+          <script>new Clickable({wrapper: '.js-target-interaction'});</script>
+            <h4>HTML</h4>
+            <code>
+             &lt;div class=&quot;js-target-interaction&quot;&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
+              &nbsp; &nbsp; First Section<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
+              &nbsp; &nbsp; Second Section<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
+              &nbsp; &nbsp; first<br>
+              &nbsp; &lt;/div&gt;
+              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
+              &nbsp; &nbsp; second<br>
+              &nbsp; &lt;/div&gt;<br>            
+            &lt;/div&gt;
+            </code>
+            <h4>Javascript</h4>
+            <code>
+              new Clickable({wrapper: '.js-target-interaction'});
+            </code>          
+        </div>
+      </div>       
+    </div>       
+    <div class="content-area js-clickable-meta-content">
+      <div class="content-description">
+        <div class="content-title">
+          <h3>Description</h3>
+        </div>
+        <div class="content-body">
+          <h4>Indicators</h4>
+          <p>Indicators are elements that are activated in parallell with content elements. Just as content elements are activated in a linear or targetted fashion, so are indicators. Unlike content elements, Indicator elements receive a 'visited' state once they are no longer active.</p>
+          <h4>Notes</h4>
+          <ul>
+            <li>The Clickable will look for <b>'.js-clickable-indicator'</b> by default</li>
+            <li>Indicator elements mimic the activation of the content elements meaning when content 0 is activated, indicator 0 is active.</li>
+            <li>Indicators add the class <b>'.active'</b> and <b>'.js-active'</b> when they are active</li>
+            <li>Indicators replace the '.active' and '.js-active' with <b>'.visited'</b> and <b>'.js-visited'</b> once they are no longer active.</li>
+            <li>Indicators can either be active or visited, not both.</li>
+            <li>The clickable will log a no content found error if it cannot find either an indicator element or a content element.</li>            
+          </ul>
+        </div>          
+      </div>
+      <div class="content-execution">
+        <div class="content-title">
+          <h3>Example</h3>
+        </div>
+        <div class="content-body">
+          <div class="js-indicator-interaction">
+            <div class="js-clickable-content-area"> First Section</div>
+            <div class="js-clickable-content-area"> Second Section </div>
+            <div class="js-clickable-indicator">indicator 1</div>
+            <div class="js-clickable-indicator">indicator 2</div>            
+            <div class="js-clickable-target">first</div>
+            <div class="js-clickable-target">second</div>            
+          </div>
+          <script>new Clickable({wrapper: '.js-indicator-interaction'});</script>
+            <h4>HTML</h4>
+            <code>
+             &lt;div class=&quot;js-indicator-interaction&quot;&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
+              &nbsp; &nbsp; First Section<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
+              &nbsp; &nbsp; Second Section<br>
+              &nbsp; &lt;/div&gt;<br>
+
+              &nbsp; &lt;div class=&quot;js-clickable-indicator&quot;&gt;<br>
+              &nbsp; &nbsp; indicator 1<br>
+              &nbsp; &lt;/div&gt;
+              &nbsp; &lt;div class=&quot;js-clickable-indicator&quot;&gt;<br>
+              &nbsp; &nbsp; indicator 2<br>
+              &nbsp; &lt;/div&gt;<br> 
+
+              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
+              &nbsp; &nbsp; first<br>
+              &nbsp; &lt;/div&gt;
+              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
+              &nbsp; &nbsp; second<br>
+              &nbsp; &lt;/div&gt;<br>            
+            &lt;/div&gt;
+            </code>
+            <h4>Javascript</h4>
+            <code>
+              new Clickable({wrapper: '.js-indicator-interaction'});
+            </code>          
+        </div>
+      </div>       
+    </div> 
+    <div class="content-area js-clickable-meta-content">
+      <div class="content-description">
+        <div class="content-title">
+          <h3>Description</h3>
+        </div>
+        <div class="content-body">
+          <h4>Mixing Elements</h4>
+          <p>Any element except the wrapper element can be mixed with any other element type. This is not always the wisest decision. (Start + Clear does nothing good). Some useful combinations:</p>
+          <ul>
+            <li><b>Indicator</b> element + <b>Target</b> element. Allows the controls to reflect the currently active content area</li>
+            <li><b>Indicator</b> element + <b>Content</b> element. Allows content areas to have a visited state.</li>
+            <li><b>Clear</b> element + final <b>Content</b> element. A good way to restart the Clickable interaction</li>
+          </ul>
+        </div>          
+      </div>
+      <div class="content-execution">
+        <div class="content-title">
+          <h3>Example</h3>
+        </div>
+        <div class="content-body">
+          <div class="js-mixing-interaction">
+            <div class="js-clickable-content-area"> First Section</div>
+            <div class="js-clickable-content-area"> Second Section </div>         
+            <div class="js-clickable-target js-clickable-indicator">first</div>
+            <div class="js-clickable-target js-clickable-indicator">second</div>            
+          </div>
+          <script>new Clickable({wrapper: '.js-mixing-interaction'});</script>
+            <h4>HTML</h4>
+            <code>
+             &lt;div class=&quot;js-mixing-interaction&quot;&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
+              &nbsp; &nbsp; First Section<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt;<br> 
+              &nbsp; &nbsp; Second Section<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-target js-clickable-indicator&quot;&gt;<br>
+              &nbsp; &nbsp; first<br>
+              &nbsp; &lt;/div&gt;
+              &nbsp; &lt;div class=&quot;js-clickable-target js-clickable-indicator&quot;&gt;<br>
+              &nbsp; &nbsp; second<br>
+              &nbsp; &lt;/div&gt;<br>            
+            &lt;/div&gt;
+            </code>
+            <h4>Javascript</h4>
+            <code>
+              new Clickable({wrapper: '.js-mixing-interaction'});
+            </code>          
+        </div>
+      </div>       
+    </div>  
+    <div class="content-area js-clickable-meta-content">
+      <div class="content-description">
+        <div class="content-title">
+          <h3>Description</h3>
+        </div>
+        <div class="content-body">
+          <h4>Global States</h4>
+          <p>The Clickable has global states which relate to how and if the Clickable has been navigated. These states are added and removed from the wrapper via a class. The five main states are:</p>
+          <ul>
+            <li>Initial.
+              <ul>
+                <li>No class is added to the interaction</li>
+                <li>All other states are removed</li>
+                <li>This state occurs if the Clickable has a start element before the start element is clicked.</li>
+                <li>This state also occurs if the interaciton has a clear element and after the clear element has been clicked</li>
+              </ul>
+            </li>
+            <li>Navigated.
+              <ul>
+                <li>The '<b>navigated</b>' class is added to the Clickable wrapper. </li>
+                <li>This state occurs any time the Clickable is not in the initial state.</li>
+              </ul>
+            </li>
+            <li>Linear.
+              <ul>
+                <li>The '<b>linear</b>' class is added to the Clickable wrapper</li>
+                <li>This state occurs when the most recent navigation was a previous or next element click.</li>
+                <li>This state cannot occur the same time as the targetted state</li>
+              </ul>
+            </li>
+            <li>Targetted.
+              <ul>
+                <li>The '<b>targetted</b>' class is added to the Clickable wrapper</li>
+                <li>This state occurs when the most recent navigation was a target element click.</li>
+                <li>This state cannot occur the same time as the linear state</li>
+              </ul>
+            </li>                           
+            <li>Active-index.
+              <ul>
+                <li>The '<b>active-index</b>' class is added to the Clickable wrapper where index is the current content area active.</li>
+                <li>This state occurs any time the Clickable is navigated.</li>
+                <li>This state is removed in the initial state.</li>
+                <li>This state cannot occur the same time as other active-index states.</li>
+              </ul>
+            </li> 
+          </ul>
+        </div>          
+      </div>
+      <div class="content-execution">
+        <div class="content-title">
+          <h3>Example</h3>
+        </div>
+        <div class="content-body">
+          <div class="js-globals-interaction">
+            <div class="js-clickable-start">Start</div>          
+            <div class="js-clickable-content-area"> First Section
+            <div class="js-clickable-clear">clear</div>            
+            </div>
+            <div class="js-clickable-content-area"> Second Section 
+            <div class="js-clickable-clear">clear</div>            
+            </div>         
+            <div class="js-clickable-target">first</div>            
+            <div class="js-clickable-next">next</div>            
+          </div>
+          <script>new Clickable({wrapper: '.js-globals-interaction'});</script>
+            <h4>HTML</h4>
+            <code>
+            &lt;div class=&quot;js-globals-interaction&quot;&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-start&quot;&gt;<br>
+              &nbsp; &nbsp; Start<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt; <br>
+              &nbsp; &nbsp; First Section<br>
+              &nbsp; &nbsp; &lt;div class=&quot;js-clickable-clear&quot;&gt;<br>
+              &nbsp; &nbsp; &nbsp; clear<br>
+              &nbsp; &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-content-area&quot;&gt; <br>
+              &nbsp; &nbsp; Second Section<br>
+              &nbsp; &nbsp; &lt;div class=&quot;js-clickable-clear&quot;&gt;<br>
+              &nbsp; &nbsp; &nbsp; clear<br>
+              &nbsp; &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;/div&gt;<br>    
+              &nbsp; &lt;div class=&quot;js-clickable-target&quot;&gt;<br>
+              &nbsp; &nbsp; first<br>
+              &nbsp; &lt;/div&gt;<br>
+              &nbsp; &lt;div class=&quot;js-clickable-next&quot;&gt;<br>
+              &nbsp; &nbsp; next<br>
+              &nbsp; &lt;/div&gt;<br>
+            &lt;/div&gt;
+            </code>
+            <h4>Javascript</h4>
+            <code>
+              new Clickable({wrapper: '.js-globals-interaction'});
+            </code>          
+        </div>        
+      </div>       
+    </div>  
+    <div class="content-area js-clickable-meta-content">
+        <div class="conclusion">
+          <p>That's about it for linear navigation. The next section covers targetted and mixed navigation as well as navigational indicators.</p> <br>
+          <a href="index-target.html">Click to Continue</a>
+        </div>
+    </div>     
   </div><!-- content -->
   <div class="navigation">
-    <div class="js-clickable-clear" data-context="test"></div>
-    <div class="js-clickable-prev" data-context="test"></div>
-    <div class="js-clickable-next" data-context="test"></div>
-    <div class="js-clickable-start" data-context="test"></div>
-  </div><!-- navigation -->
-  <div class="navigation">
-    <div class="js-clickable-clear" data-context="test2"></div>
-    <div class="js-clickable-prev" data-context="test2"></div>
-    <div class="js-clickable-next" data-context="test2"></div>
-    <div class="js-clickable-start" data-context="test2"></div>
+    <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator"> Targets </div>
+     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Indicators </div>
+     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Mixing Elements </div>     
+     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Global States </div>
   </div><!-- navigation -->  
-  <div class="navigation">
-    <div class="js-clickable-clear"></div>
-    <div class="js-clickable-prev"></div>
-    <div class="js-clickable-next"></div>
-    <div class="js-clickable-start"></div>
-  </div><!-- navigation -->  
-
 </div>
+<script>var thing = new Clickable({infinite: false,
+                                  wrapper: '.js-clickable-meta-interaction',
+                                  content: '.js-clickable-meta-content',
+                                  indicators: '.js-clickable-meta-indicator',
+                                  navigation:{
+                                    targets:'.js-clickable-meta-target', 
+                                    },
+                                  meta: {
+                                    start:'.js-clickable-meta-start'
+                                  } 
+                                  });</script>
+
+
+
+<!-- 
+ - mixed navigation
+ - contexts
+ - default context and context globals
+ - nesting without contexts
+ -->

@@ -157,9 +157,11 @@ describe('ClickableController.js', function() {
 			})
 		})	
 		describe('when clicking clear', function(){
-			it('should add a class to the interaction', function(){
+			it('should remove navigated class from the interaction', function(){
+				$(controller.navigation.next).click();
+				expect($(controller.interaction)).to.have.class('navigated')				
 				$(controller.navigation.clear).click();
-				expect($(controller.interaction)).to.have.class('initial')				
+				expect($(controller.interaction)).not.to.have.class('navigated')				
 			})
 		})	
 		it('should add a navigated and navigation type class to the interaction', function(){

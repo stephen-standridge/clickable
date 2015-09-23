@@ -2,7 +2,7 @@ var ClickableConstructor = function( args, auto=true ){
   let defaults = {
     wrapper: '.js-clickable-interaction',
     content: '.js-clickable-content-area',
-    indicators: '.js-clickable-content-indicator',
+    indicators: '.js-clickable-indicator',
     navigation: {
       targets: '.js-clickable-target',
       prev: '.js-clickable-prev',

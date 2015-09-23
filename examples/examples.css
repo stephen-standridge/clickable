@@ -10,6 +10,12 @@
 	bottom: 0;
 	margin-top: 50px;
 }
+.js-clickable-target-test{
+	height: 950px;
+}
+h4{
+	clear: both;
+}
 .start-screen{
 	height: 100%;
 	width: 100%;
@@ -41,6 +47,17 @@
 .navigation__item--prev{
 	float: left;
 	margin-left: -2px;
+}
+.navigation__item--target{
+	float: left;
+	margin-left: -2px;
+	background: rgba(245,245,245,1);
+}
+.navigation__item--target.visited{
+	background: rgba(235,235,235,1);
+}
+.navigation__item--target.active{
+	background: rgba(255,255,255,1);
 }
 .navigation__item{
 	border: 1px solid rgba(220, 220, 220, 1);

@@ -17,8 +17,13 @@
 .content-execution .js-clickable-content-area.active{
 	display: block;
 }
-.content-execution .js-basic-interaction, .content-execution .js-finite-interaction, .content-execution .js-started-interaction{
+.content-execution .js-basic-interaction, .content-execution .js-finite-interaction, .content-execution .js-started-interaction, .content-execution .js-mixing-interaction, .content-execution .js-target-interaction, .content-execution .js-globals-interaction{
 	height: 270px;
+	position: relative;
+	margin-bottom: 20px;
+}
+.content-execution .js-indicator-interaction{
+	height: 325px;
 	position: relative;
 	margin-bottom: 20px;
 }
@@ -26,12 +31,22 @@
 	float: right;
 	margin-right: -2px;	
 }
-.content-execution .js-clickable-prev{
+.content-execution .js-clickable-prev, .content-execution .js-clickable-target{
 	float: left;
 	margin-left: -2px;
 }
-.content-execution .js-clickable-prev, .content-execution .js-clickable-next{
+.content-execution .js-clickable-indicator{
+	float: left;
+	margin-left: -2px;	
+	background: rgba(245,245,245,1);
+}
+.content-execution .js-clickable-prev, .content-execution .js-clickable-next, .content-execution .js-clickable-target{
+	cursor: pointer;
+
+}
+.content-execution .js-clickable-prev, .content-execution .js-clickable-next, .content-execution .js-clickable-target, .content-execution .js-clickable-indicator{
 	border: 1px solid rgba(220, 220, 220, 1);
+	background: rgba(245, 245, 245, 1);
 	width: 100%;
 	padding-bottom: 25px;
 	padding-top: 25px;
@@ -39,8 +54,13 @@
 	padding-left: 5%;
 	padding-right: 5%;
 	text-align: center;
-	cursor: pointer;
 	position: relative;
+}
+.content-execution .js-clickable-indicator.active{
+	background: rgba(255,255,255,1);
+}
+.content-execution .js-clickable-indicator.visited{
+	background: rgba(235,235,235,1);
 }
 .content-execution .js-clickable-clear{
 	padding: 15px;
