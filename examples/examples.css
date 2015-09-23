@@ -1,0 +1,72 @@
+.js-clickable-meta-interaction{
+	width: 80%;
+	height: 700px;
+	position: absolute;
+	margin: auto;
+	background: rgba(200,200,200,1);
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin-top: 50px;
+}
+.start-screen{
+	height: 100%;
+	width: 100%;
+	background: black;
+	z-index: 2;
+	position: absolute;
+	display: block;
+}
+.navigated .start-screen{
+	display: none;
+}
+.js-clickable-meta-start{
+	height: 100%;
+	width: 100%;
+	background: black;
+	z-index: 2;
+	position: absolute;
+}
+.navigation{
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	background: white;
+}
+.navigation__item--next{
+	float: right;
+	margin-right: -2px;	
+}
+.navigation__item--prev{
+	float: left;
+	margin-left: -2px;
+}
+.navigation__item{
+	border: 1px solid rgba(220, 220, 220, 1);
+	width: 100%;
+	padding-bottom: 25px;
+	padding-top: 25px;
+	max-width: 40%;
+	padding-left: 5%;
+	padding-right: 5%;
+	text-align: center;
+	cursor: pointer;	
+}
+
+.content-body{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.content-title{
+	border: 1px solid rgba(220, 220, 220, 1);
+	position: relative;
+	height: 7%;
+	background: white;
+}
+.js-clickable-meta-interaction .content-area{
+	display: none;
+}
+.js-clickable-meta-interaction .content-area.active{
+	display: block;
+}

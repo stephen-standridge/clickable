@@ -1,0 +1,66 @@
+.content-execution{
+	position: relative;
+	width: 50%;
+	float: right;	
+	box-sizing: border-box;
+}
+.content-execution .content-body{
+	margin-top: 20px;
+}
+.content-execution .js-clickable-content-area{
+	position: relative;
+	background: white;
+	height: 200px;
+	text-align: center;
+	display: none;
+}
+.content-execution .js-clickable-content-area.active{
+	display: block;
+}
+.content-execution .js-basic-interaction, .content-execution .js-finite-interaction, .content-execution .js-started-interaction{
+	height: 270px;
+	position: relative;
+	margin-bottom: 20px;
+}
+.content-execution .js-clickable-next{
+	float: right;
+	margin-right: -2px;	
+}
+.content-execution .js-clickable-prev{
+	float: left;
+	margin-left: -2px;
+}
+.content-execution .js-clickable-prev, .content-execution .js-clickable-next{
+	border: 1px solid rgba(220, 220, 220, 1);
+	width: 100%;
+	padding-bottom: 25px;
+	padding-top: 25px;
+	max-width: 40%;
+	padding-left: 5%;
+	padding-right: 5%;
+	text-align: center;
+	cursor: pointer;
+	position: relative;
+}
+.content-execution .js-clickable-clear{
+	padding: 15px;
+	background: rgba(220,220,220,1);
+	text-align: center;
+	margin: auto;
+	cursor: pointer;
+	max-width: 100px;
+	margin-top: 20px;
+	
+}
+.content-execution .js-clickable-start{
+	height: 270px;
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+	text-align: center;
+	background: white;
+	display: block;
+}
+.content-execution .navigated .js-clickable-start{
+	display: none;
+}

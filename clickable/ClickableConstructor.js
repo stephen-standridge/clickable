@@ -82,6 +82,14 @@ ClickableConstructor.prototype = {
   },
   setupWrapper: function( i ){
     i.interaction = $( i.wrapper );
+    var interactionCount = i.interaction.length || 0;
+    if( interactionCount < 1 ){
+      i.warnings.push('no interaciton found')
+    }
+    if( interactionCount > 1 ){
+      i.warnings.push('multiple interactions found')
+    }
+    i.warn();    
     return i;
   },
   setupContent: function( i ){

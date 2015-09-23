@@ -43,6 +43,7 @@ ClickableController.prototype = {
   reset: function(){
     this.makeAllInactive();
     this.clearNavigationType();
+    console.log('hello')        
   },  
   decrementIndex: function(){
     if(this.index  > 0){
@@ -76,7 +77,6 @@ ClickableController.prototype = {
       e.preventDefault();      
       self.callPreclickFuncs( 'clear', $(this) );
       self.reset();
-      self.setNavigationType( 'initial' );
     });
     $(this.get('navigation', 'start')).click(function (e) {
       e.preventDefault();
@@ -122,11 +122,14 @@ ClickableController.prototype = {
       this.addInteractionActiveClass();      
       if( areas.length > 0 ) { 
         this.addClassSVG( areas[ index ], 'active' );
+        this.addClassSVG( areas[ index ], 'js-active' );
         areas.active = index ;        
       }
       if( indicators.length > 0 ){ 
         this.removeClassSVG( indicators[ index ], 'visited' );
+        this.removeClassSVG( indicators[ index ], 'js-visited' );
         this.addClassSVG( indicators[ index ], 'active' );
+        this.addClassSVG( indicators[ index ], 'js-active' );
       }
       if( count1 + count2 < 1 ){
         this.warnings.push('no content to activate');
@@ -141,10 +144,12 @@ ClickableController.prototype = {
         indicators = this.get( 'indicators' );
     if( areas.length ){
       this.removeClassSVG( areas, 'active' );
+      this.removeClassSVG( areas, 'js-active' );
     }
     if( indicators.length ){
       this.makeIndicatorVisited();   
       this.removeClassSVG( indicators, 'active' );
+      this.removeClassSVG( indicators, 'js-active' );
     }
     this.removeInteractionActiveClass();
   },
@@ -159,8 +164,9 @@ ClickableController.prototype = {
   makeIndicatorVisited: function(){
     var self = this;
     $( this.get( 'indicators' ) ).each(function(){
-      if($(this).attr('class').indexOf('active') > 0 ) {
+      if($(this).attr('class').indexOf('js-active') > 0 ) {
         self.addClassSVG(this, 'visited');
+        self.addClassSVG(this, 'js-visited');
       }
     });
   },

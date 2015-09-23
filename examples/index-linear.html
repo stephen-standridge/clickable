@@ -1,0 +1,196 @@
+<script src="../dist/clickable.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<link rel="stylesheet" href="examples.css">
+<link rel="stylesheet" href="example-description.css">
+<link rel="stylesheet" href="example-execution.css">
+<div class="js-clickable-linear-test js-clickable-meta-interaction">
+    <div class="start-screen">
+      <div>Clickable is an easy-to-use, configurable content navigation module. Clickable supports three basic types of navigation: linear, targetted, and nested navigation.</div>
+      <div class="js-clickable-meta-start">Click to Begin</div>
+    </div>  
+  <div class="content">
+    <div class="content-area js-clickable-meta-content">
+      <div class="content-description">
+        <div class="content-title">
+          <h3>Description</h3>
+        </div>
+        <div class="content-body">
+          <h4>Basic Implementation</h4>
+          <p>The most basic of the implementations is the linear navigation. Linear navigation is great for slideshows and any sequential content. The basic elements for a linear navigation module are: </p>
+          <ul>
+            <li>An interaction wrapper element with the class<b>'js-clickable-interaction'</b> by default. This element should contain all other clickable elements.</li>
+            <li>At least one(but really, at least two) content area elements with the class<b>'js-clickable-content-area'</b> by default. These elements represent the content through which the user is navigating.</li>
+            <li>At least one navigation element. For linear navigations, Clickable will look for <b>'.js-clickable-prev'</b> and <b>'.js-clickable-next'</b></li>
+          </ul>
+          <h4>Notes</h4>
+          <ul>
+            <li>The Clickable will automatically look for the default class for all basic element</li>          
+            <li>Will log a no interaction found warning if it cannot find elements of the wrapper class.</li>
+            <li>Will log a multiple interactions found warning if it finds multiple wrappers.</li>
+            <li>Will log a no content warning if it cannot find elements of the content class within the wrapper element.</li>
+            <li>Will log a no navigation warning if it cannot find at least one element of the previous and next class(<b>'.js-clickable-prev'</b> and <b>'.js-clickable-next'</b> by default) within the wrapper element.</li>
+          </ul>
+        </div>          
+      </div>
+      <div class="content-execution">
+        <div class="content-title">
+          <h3>Example</h3>
+        </div>
+        <div class="content-body">
+          <div class="js-clickable-linear-test js-basic-interaction">
+            <div class="js-clickable-content-area"> First Section</div>
+            <div class="js-clickable-content-area"> Second Section </div>
+            <div class="js-clickable-prev">prev</div>
+            <div class="js-clickable-next">next</div>            
+          </div>
+          <script>new Clickable({wrapper: '.js-basic-interaction'});</script>
+            <h4>HTML</h4>
+            <code>
+              &lt;div class=&quot;js-clickable-linear-test js-basic-interaction&quot;&gt;<br>
+                &nbsp; &lt;div class=&quot;content-area js-clickable-content-area&quot;&gt;<br>
+                &nbsp; &nbsp; First Section<br>
+                &nbsp; &lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;content-area js-clickable-content-area&quot;&gt;<br>
+                &nbsp; &nbsp; Second Section<br>
+                &nbsp; &lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;js-clickable-prev&quot;&gt;prev&lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;js-clickable-next&quot;&gt;next&lt;/div&gt;<br>
+              &lt;/div&gt;<br>        
+            </code>
+            <h4>Javascript</h4>
+            <code>
+              new Clickable({wrapper: '.js-basic-interaction'});
+            </code>          
+        </div>
+      </div>       
+    </div>       
+    <div class="content-area js-clickable-meta-content">
+      <div class="content-description">
+        <div class="content-title">
+          <h3>Description</h3>
+        </div>
+        <div class="content-body">
+          <h4>Navigating</h4>
+          <p>After the Clickable is initialized, it will automatically add the 'active' and 'js-active' classes to the first js-content area in the dom. It will also add an active-index and navigated class to the interaction wrapper where index is the current scene visible. It will bind the js-clickable-next element to increase the index and the js-clickable-prev to decrease the index.</p>
+          <h4>Notes</h4>
+          <ul>
+            <li>The Clickable will default to 'infinite' navigation. Infinite navigation will make all of the content areas an infinite loop. </li>
+            <li>To override this default, you can pass 'infinite: false' to the constructor.</li>  
+            <li>Finite navigation makes content areas have a definite start and end..</li>
+            <li>The active-index class is a great way to make content-area-specific styling on the entire Clickable</li>
+            <li>The navigated class implies that the Clickable has navigated to the first content area</li>  
+            <li>The Clickable will automatically consider the first content area active and mark it and the interaction as such.</li>
+          </ul>
+        </div>          
+      </div>
+      <div class="content-execution">
+        <div class="content-title">
+          <h3>Example</h3>
+        </div>
+        <div class="content-body">
+          <div class="js-clickable-linear-test js-finite-interaction">
+            <div class="js-clickable-content-area"> First Section</div>
+            <div class="js-clickable-content-area"> Last Section </div>
+            <div class="js-clickable-prev">prev</div>
+            <div class="js-clickable-next">next</div>            
+          </div>
+          <script>new Clickable({infinite: false, wrapper: '.js-finite-interaction'});</script>
+            <h4>HTML</h4>
+            <code>
+              &lt;div class=&quot;js-clickable-linear-test js-finite-interaction&quot;&gt;<br>
+                &nbsp; &lt;div class=&quot;content-area js-clickable-content-area&quot;&gt;<br>
+                &nbsp; &nbsp; First Section<br>
+                &nbsp; &lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;content-area js-clickable-content-area&quot;&gt;<br>
+                &nbsp; &nbsp; Second Section<br>
+                &nbsp; &lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;js-clickable-prev&quot;&gt;prev&lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;js-clickable-next&quot;&gt;next&lt;/div&gt;<br>
+              &lt;/div&gt;<br>        
+            </code>
+            <h4>Javascript</h4>
+            <code>
+              new Clickable({infinite: false, wrapper: '.js-finite-interaction'});
+            </code>          
+        </div>
+      </div>       
+    </div> 
+    <div class="content-area js-clickable-meta-content">
+      <div class="content-description">
+        <div class="content-title">
+          <h3>Description</h3>
+        </div>
+        <div class="content-body">
+          <h4>The Meta Controls</h4>
+          <p>The Clickable supports two meta control elements: Start and Clear. The start element is used to prevent the first content area to be automatically active. The start element's existence will interrupt the regular initialization and make the activating of the first content area dependent on the start element click. Clicking the clear element restarts the interaction to the initial state.</p>
+          <h4>Notes</h4>
+          <ul>
+            <li>To make a start element, the Clickable will look for <b>'js-clickable-start'</b> by default.</li>
+            <li>To make a clear element, the Clickable will look for <b>'js-clickable-clear'</b> by default.</li>
+            <li>Only once the start screen has been clicked the Clickable receives the 'navigated' class. The 'navigated' class on the Clickable is a great way to hide the start screen on click.</li>
+            <li>The clear element will remove the 'navigated' class on click as well as restarting the screen to active-0</li>
+          </ul>
+        </div>          
+      </div>
+      <div class="content-execution">
+        <div class="content-title">
+          <h3>Example</h3>
+        </div>
+        <div class="content-body">
+          <div class="js-clickable-linear-test js-started-interaction">
+            <div class="js-clickable-start">Start</div>
+            <div class="js-clickable-content-area"> First Section</div>
+            <div class="js-clickable-content-area"> Last Section 
+            <div class="js-clickable-clear">Clear</div></div>
+            <div class="js-clickable-prev">prev</div>
+            <div class="js-clickable-next">next</div>            
+          </div>
+          <script>new Clickable({wrapper: '.js-started-interaction'});</script>
+            <h4>HTML</h4>
+            <code>
+              &lt;div class=&quot;js-clickable-linear-test js-started-interaction&quot;&gt;<br>
+                &lt;div class=&quot;js-clickable-start&quot;&gt;Start&lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;content-area js-clickable-content-area&quot;&gt;<br>
+                &nbsp; &nbsp; First Section<br>
+                &nbsp; &lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;content-area js-clickable-content-area&quot;&gt;<br>
+                &nbsp; &nbsp; Last Section<br>
+                &nbsp; &nbsp; &lt;div class=&quot;js-clickable-clear&quot;&gt;Clear&lt;/div&gt;<br>
+                &nbsp; &lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;js-clickable-prev&quot;&gt;prev&lt;/div&gt;<br>
+                &nbsp; &lt;div class=&quot;js-clickable-next&quot;&gt;next&lt;/div&gt;<br>
+              &lt;/div&gt;<br>        
+            </code>
+            <h4>Javascript</h4>
+            <code>
+              new Clickable({wrapper: '.js-started-interaction'});
+            </code>          
+        </div>
+      </div>       
+    </div>        
+    <div class="content-area js-clickable-meta-content">
+        <div class="conclusion">
+          <p>That's about it for linear navigation. The next section covers targetted and mixed navigation as well as navigational indicators.</p> <br>
+          <a href="index-target.html">Click to Continue</a>
+        </div>
+    </div>     
+  </div><!-- content -->
+  <div class="navigation">
+    <div class="navigation__item navigation__item--prev js-clickable-meta-prev"> < prev </div>
+    <div class="navigation__item navigation__item--next js-clickable-meta-next"> next > </div>
+  </div><!-- navigation -->  
+</div>
+<script>var thing = new Clickable({infinite: false,
+                                  wrapper: '.js-clickable-meta-interaction',
+                                  content: '.js-clickable-meta-content',
+                                  navigation:{
+                                    prev:'.js-clickable-meta-prev', 
+                                    next:'.js-clickable-meta-next'
+                                    },
+                                  meta: {
+                                    start:'.js-clickable-meta-start'
+                                  } 
+                                  });</script>
+
+
+
