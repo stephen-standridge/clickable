@@ -148,32 +148,7 @@
             </code>          
         </div>
       </div>       
-    </div> 
-    <div class="content-area js-clickable-meta-content">
-      <div class="content-description">
-        <div class="content-title">
-          <h3>Description</h3>
-        </div>
-        <div class="content-body">
-          <h4>Nested Navigation without Contexts</h4>
-      
-        </div>          
-      </div>
-      <div class="content-execution">
-        <div class="content-title">
-          <h3>Example</h3>
-        </div>
-        <div class="content-body">
-            <h4>HTML</h4>
-            <code>
-             
-            </code>
-            <h4>Javascript</h4>
-            <code>
-            </code>          
-        </div>
-      </div>       
-    </div>   
+    </div>  
     <div class="content-area js-clickable-meta-content">
       <div class="content-description">
         <div class="content-title">
@@ -271,13 +246,68 @@
             </code>          
         </div>        
       </div>       
-    </div>     
+    </div> 
+    <div class="content-area js-clickable-meta-content">
+      <div class="content-description">
+        <div class="content-title">
+          <h3>Description</h3>
+        </div>
+        <div class="content-body">
+          <h4>Clickable Defaults</h4>
+          <p>To make things flow smoothly, Clickable has a few defaults; all of which can be overridden in the constructor. The defaults are as follows:</p>
+          <code>
+            {<br>
+             &nbsp; wrapper: '.js-clickable-interaction',<br>
+             &nbsp; content: '.js-clickable-content-area',<br>
+             &nbsp; indicators: '.js-clickable-indicator',<br>
+             &nbsp; navigation: {<br>
+             &nbsp; &nbsp; targets: '.js-clickable-target',<br>
+             &nbsp; &nbsp; prev: '.js-clickable-prev',<br>
+             &nbsp; &nbsp; next: '.js-clickable-next',<br>
+             &nbsp; },<br>
+             &nbsp; meta: {<br>
+             &nbsp; &nbsp; clear: '.js-clickable-clear',<br>
+             &nbsp; &nbsp; start: '.js-clickable-start',<br>
+             &nbsp; },<br>
+             &nbsp; infinite: true,<br>
+             &nbsp; toggle: false<br>
+            }
+          </code>
+        </div>          
+      </div>
+      <div class="content-execution">
+        <div class="content-title">
+          <h3>Example</h3>
+        </div>
+        <div class="content-body">
+            <h4>Javascript</h4>
+            <code>
+              new Clickable({<br>
+              &nbsp; wrapper: '.new-wrapper-class',<br>
+              &nbsp; content: '.new-content-class',<br>
+              &nbsp; indicators: '.new-indicator-class',<br>
+              &nbsp; navigation: {<br>
+              &nbsp; &nbsp; targets: '.new-target-class',<br>
+              &nbsp; &nbsp; prev: '.new-prev-class',<br>
+              &nbsp; &nbsp; next: '.new-next-class',<br>
+              &nbsp; },<br>
+              &nbsp; meta: {<br>
+              &nbsp; &nbsp; clear: '.new-clear-class',<br>
+              &nbsp; &nbsp; start: '.new-start-class',<br>
+              &nbsp; },<br>
+              &nbsp; infinite: false,<br>
+              &nbsp; toggle: true<br>
+            })
+            </code>          
+        </div>
+      </div>       
+    </div>          
   </div><!-- content -->
   <div class="navigation">
     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Nesting with Contexts </div>
      <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Mixing Navigation Types </div>         
-     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Nesting without Contexts </div>
      <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Global States </div>
+     <div class="navigation__item navigation__item--target js-clickable-meta-target js-clickable-meta-indicator">Clickable Defaults </div>     
   </div><!-- navigation -->  
 </div>
 <script>var thing = new Clickable({infinite: false,
@@ -292,12 +322,3 @@
                                   } 
                                   });</script>
 
-
-<!-- 
- - advanced navigation (mixed)
- - contexts
-    - default context
-    - active-context-index class
- - global states
- - nesting without contexts
- -->
